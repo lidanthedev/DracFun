@@ -23,7 +23,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -167,9 +169,12 @@ public class FusionCrafting implements Listener, CommandExecutor{
         return tier;
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
+        if (e.useInteractedBlock() == Event.Result.DENY){
+            return;
+        }
         if (cooldowns.get(p) == null){
             cooldowns.put(p,System.currentTimeMillis() - 200);
         }
@@ -177,7 +182,8 @@ public class FusionCrafting implements Listener, CommandExecutor{
             // p.sendMessage("Click cooldown " + (System.currentTimeMillis() - cooldowns.get(p)));
             return;
         }
-        if (p.getName().contains("LidanTheGamer") && e.getAction() == Action.RIGHT_CLICK_BLOCK){
+        if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            p.sendMessage("useInteractedBlock + " + e.useInteractedBlock());
             Block block = e.getClickedBlock();
             ItemStack tool = p.getInventory().getItemInMainHand();
             // p.sendMessage("Interact 1");
@@ -279,27 +285,21 @@ public class FusionCrafting implements Listener, CommandExecutor{
         }.runTaskAsynchronously(Draconic.getInstance());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void breakBlock(BlockBreakEvent e) {
-        new BukkitRunnable(){
-            @Override
-            public void run() {
-                Location blockloc = e.getBlock().getLocation();
-                HashMap<String,Object> blockdata = Database.select(blockloc);
-                if (blockdata.size() == 0) {return;}
-                if (!e.isCancelled()) {
-                    Player p = (Player) e.getPlayer();
-                    Database.delete(blockloc);
-                    for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
-                        if (holo.getLocation().distance(e.getBlock().getLocation()) < 1.5) {
-                            holo.delete();
-                            break;
-                        }
-                    }
+        Location blockloc = e.getBlock().getLocation();
+        HashMap<String,Object> blockdata = Database.select(blockloc);
+        if (blockdata.size() == 0) {return;}
+        if (!e.isCancelled()) {
+            Player p = (Player) e.getPlayer();
+            Database.delete(blockloc);
+            for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
+                if (holo.getLocation().distance(e.getBlock().getLocation()) < 1.5) {
+                    holo.delete();
+                    break;
                 }
             }
-        }.runTaskLater(Draconic.getInstance(), 1L);
-
+        }
     }
 
     @EventHandler

@@ -85,7 +85,7 @@ public final class Draconic extends AbstractAddon {
     public void enable() {
         // Plugin startup logic
         try {
-            AddonConfig cfg = new AddonConfig(this.getDataFolder().getPath() + "config.yml");
+            AddonConfig cfg = new AddonConfig(this.getDataFolder().getPath() + "/config.yml");
         } catch(Exception error){
             getLogger().severe("Error happened when loading config");
             error.printStackTrace();
