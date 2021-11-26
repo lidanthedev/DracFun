@@ -441,7 +441,7 @@ public final class Draconic extends AbstractAddon {
                     endcrystal,SlimefunItem.getById("DRACONIC_INJECTOR").getItem(),endcrystal,
                     endcrystal,endcrystal,endcrystal
             };
-            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
+            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,FusionCrafting.TYPE,
                     recipe,500000);
             slimeitem.register(this);
         }

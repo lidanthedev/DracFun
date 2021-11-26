@@ -83,6 +83,18 @@ public class FusionCrafting implements Listener, CommandExecutor{
 
     public static HashMap<Location, Location> connectedInjectors = new HashMap<>();
 
+    public static boolean viewRecipe(Player p,ItemStack item){
+        for (String recipe: recipes.keySet()) {
+            ItemStack result = recipes.get(recipe)[1];
+            if (result.isSimilar(item)){
+                if (viewRecipe(p,result)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     public static boolean viewRecipe(Player p,String recipe){
         if (recipes.get(recipe) == null) return false;
         ItemStack[] items = recipes.get(recipe);
