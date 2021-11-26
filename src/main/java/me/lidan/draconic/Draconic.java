@@ -69,7 +69,7 @@ public final class Draconic extends AbstractAddon {
     public static Draconic getInstance() {
         final Draconic i = instance();
         if (i == null)
-            throw new IllegalStateException();
+            throw new IllegalStateException("Instance is not created!");
         return i;
     }
 
