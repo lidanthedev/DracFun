@@ -10,6 +10,7 @@ import io.github.mooy1.infinitylib.commands.AddonCommand;
 import io.github.mooy1.infinitylib.common.CoolDowns;
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.mooy1.infinitylib.core.AbstractAddon;
+import io.github.mooy1.infinitylib.core.AddonConfig;
 import io.github.thebusybiscuit.slimefun4.api.SlimefunAddon;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
@@ -83,7 +84,19 @@ public final class Draconic extends AbstractAddon {
     @Override
     public void enable() {
         // Plugin startup logic
-        Config cfg = new Config(this);
+        try {
+            AddonConfig cfg = new AddonConfig(this.getDataFolder().getPath() + "config.yml");
+        } catch(Exception error){
+            getLogger().severe("Error happened when loading config");
+            error.printStackTrace();
+        }
+        try {
+            setup();
+
+        } catch (Exception error){
+            getLogger().severe("Error happened when loading items");
+            error.printStackTrace();
+        }
         if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
             getLogger().severe("*** HolographicDisplays is not installed or not enabled. ***");
             getLogger().severe("*** This plugin will be disabled. ***");
@@ -95,6 +108,7 @@ public final class Draconic extends AbstractAddon {
         getServer().getPluginManager().registerEvents(new Damage(),this);
         getServer().getPluginManager().registerEvents(new Interact(),this);
         getServer().getPluginManager().registerEvents(new Death(),this);
+        getServer().getPluginManager().registerEvents(new FusionCrafting(),this);
         everytick.runTaskTimer(this,0L,5L);
         every5secs.runTaskAsynchronously(this);
         getCommand("aiflyto").setExecutor(new aiflycmd());
@@ -136,13 +150,6 @@ public final class Draconic extends AbstractAddon {
             getLogger().log(Level.WARNING,"Error Slimefun instance was null slimefun items didn't load!");
         }
          */
-        try {
-            setup();
-            getServer().getPluginManager().registerEvents(new FusionCrafting(),this);
-        } catch (Exception error){
-            getLogger().severe("Error happened when loading items");
-            error.printStackTrace();
-        }
 
         System.out.println("Draconic Evolution Loaded");
     }
