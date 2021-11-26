@@ -160,6 +160,18 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem())
                 ,new ItemStack(Material.AIR)},35000000);
+        FusionCrafting.addRecipe("AWAKENED_CORE",
+                new ItemStack[]{new ItemStack(Material.NETHER_STAR),
+                new ItemStack(SlimefunItem.getById("AWAKENED_CORE").getItem())
+                ,FusionCrafting.getItemInjectortier(2),
+                new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem())
+                ,new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem())
+                ,new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem())},9000000);
         ErrorFile.setup();
         ErrorFile.get().addDefault("A-Number",0);
         // ErrorFile.get().addDefault("Overload-Nerf",0d);
@@ -224,6 +236,8 @@ public final class Draconic extends AbstractAddon {
             Slimefun.getRegistry().getSlimefunItemIds().remove("FUSION_CORE");
             Slimefun.getRegistry().getSlimefunItemIds().remove("WYVERN_INJECTOR");
             Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_DRACONIUM_BLOCK");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_DRACONIUM_INGOT");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_CORE");
         }
 
 
@@ -479,6 +493,42 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         SlimefunItemStack AWAKENED_DRACONIUM_BLOCK = (SlimefunItemStack) SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem();
+
+        if(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT") == null){
+            SlimefunItemStack awakened_draconium_block = new SlimefunItemStack("AWAKENED_DRACONIUM_INGOT",
+                    Material.ORANGE_DYE,
+                    "&6Awakened Draconium Ingot",
+                    "&7Used to craft draconic items");
+            ItemStack[] recipe = {
+                    AWAKENED_DRACONIUM_BLOCK,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            SlimefunItemStack awakened_draconium_block_9 = (SlimefunItemStack) awakened_draconium_block.clone();
+            awakened_draconium_block_9.setAmount(9);
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, awakened_draconium_block,RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe,awakened_draconium_block_9);
+            slimeitem.register(this);
+        }
+        SlimefunItemStack AWAKENED_DRACONIUM_INGOT =
+                (SlimefunItemStack) SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem();
+
+        if(SlimefunItem.getById("AWAKENED_CORE") == null){
+            SlimefunItemStack awakened_core = new SlimefunItemStack("AWAKENED_CORE",
+                    Material.HONEYCOMB,
+                    "&6Awakened Core",
+                    "&7Used to craft draconic items");
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, awakened_core,FusionCrafting.TYPE,
+                    recipe);
+            slimeitem.register(this);
+        }
+        SlimefunItemStack AWAKENED_CORE =
+                (SlimefunItemStack) SlimefunItem.getById("AWAKENED_CORE").getItem();
 
         if(SlimefunItem.getById("WYVERN_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_INJECTOR", Material.PURPLE_TERRACOTTA,
