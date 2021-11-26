@@ -173,6 +173,68 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
                 new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem())
                 ,new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem())},9000000);
+
+        FusionCrafting.addRecipe("DRACONIC_INJECTOR",
+                new ItemStack[]{FusionCrafting.getItemInjectortier(2),
+                        new ItemStack(SlimefunItem.getById("DRACONIC_INJECTOR").getItem())
+                        ,FusionCrafting.getItemInjectortier(2),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem()),
+                        new ItemStack(Material.DIAMOND),
+                        new ItemStack(Material.DIAMOND),
+                        new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem())
+                        ,new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem()),
+                        new ItemStack(Material.DIAMOND),
+                        new ItemStack(Material.DIAMOND)
+                        ,new ItemStack(Material.AIR)},1792000);
+
+        FusionCrafting.addRecipe("DRACONIC_HELMET",
+                new ItemStack[]{SlimefunItem.getById("WYVERN_HELMET").getItem(),
+                        new ItemStack(SlimefunItem.getById("DRACONIC_HELMET").getItem())
+                        ,FusionCrafting.getItemInjectortier(3),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem())
+                        ,new ItemStack(SlimefunItem.getById("AWAKENED_CORE").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)
+                        ,new ItemStack(SlimefunItem.getById("DRACONIC_ENERGY_CORE").getItem())},1280000);
+        FusionCrafting.addRecipe("DRACONIC_CHESTPLATE",
+                new ItemStack[]{SlimefunItem.getById("WYVERN_CHESTPLATE").getItem(),
+                        new ItemStack(SlimefunItem.getById("DRACONIC_CHESTPLATE").getItem())
+                        ,FusionCrafting.getItemInjectortier(3),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem())
+                        ,new ItemStack(SlimefunItem.getById("AWAKENED_CORE").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)
+                        ,new ItemStack(SlimefunItem.getById("DRACONIC_ENERGY_CORE").getItem())},1280000);
+        FusionCrafting.addRecipe("DRACONIC_LEGGINGS",
+                new ItemStack[]{SlimefunItem.getById("WYVERN_LEGGINGS").getItem(),
+                        new ItemStack(SlimefunItem.getById("DRACONIC_LEGGINGS").getItem())
+                        ,FusionCrafting.getItemInjectortier(3),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem())
+                        ,new ItemStack(SlimefunItem.getById("AWAKENED_CORE").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)
+                        ,new ItemStack(SlimefunItem.getById("DRACONIC_ENERGY_CORE").getItem())},1280000);
+        FusionCrafting.addRecipe("DRACONIC_BOOTS",
+                new ItemStack[]{SlimefunItem.getById("WYVERN_BOOTS").getItem(),
+                        new ItemStack(SlimefunItem.getById("DRACONIC_LEGGINGS").getItem())
+                        ,FusionCrafting.getItemInjectortier(3),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem())
+                        ,new ItemStack(SlimefunItem.getById("AWAKENED_CORE").getItem()),
+                        new ItemStack(Material.AIR),
+                        new ItemStack(Material.AIR)
+                        ,new ItemStack(SlimefunItem.getById("DRACONIC_ENERGY_CORE").getItem())},1280000);
         ErrorFile.setup();
         ErrorFile.get().addDefault("A-Number",0);
         // ErrorFile.get().addDefault("Overload-Nerf",0d);
@@ -240,6 +302,10 @@ public final class Draconic extends AbstractAddon {
             Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_DRACONIUM_INGOT");
             Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_CORE");
             Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIC_ENERGY_CORE");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIC_HELMET");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIC_CHESTPLATE");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIC_LEGGINGS");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIC_BOOTS");
         }
 
 
@@ -502,7 +568,7 @@ public final class Draconic extends AbstractAddon {
 
         if(SlimefunItem.getById("DRACONIC_ENERGY_CORE") == null){
             SlimefunItemStack draconic_energy_core = new SlimefunItemStack("DRACONIC_ENERGY_CORE",
-                    Material.POTTED_ORANGE_TULIP,
+                    Material.YELLOW_DYE,
                     "&6Draconic Energy Core",
                     "&7Used to craft draconic items");
             ItemStack[] recipe = {
@@ -628,11 +694,11 @@ public final class Draconic extends AbstractAddon {
                     "&6Draconic Fusion Injector",
                     "&9Fusion Crafting Injector");
             ItemStack[] recipe = {
-                    endcrystal,endcrystal,endcrystal,
-                    endcrystal,endcrystal,endcrystal,
-                    endcrystal,endcrystal,endcrystal
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
             };
-            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
+            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,FusionCrafting.TYPE,
                     recipe,500000);
             slimeitem.register(this);
         }
