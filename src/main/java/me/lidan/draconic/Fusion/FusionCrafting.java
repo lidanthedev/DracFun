@@ -11,9 +11,12 @@ import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.guide.GuideHistory;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
+import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideImplementation;
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNet;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import me.lidan.draconic.Database.Database;
 import me.lidan.draconic.Draconic;
 import me.lidan.draconic.Other.EnergyBreaker;
@@ -337,8 +340,8 @@ public class FusionCrafting implements Listener, CommandExecutor{
             e.setCancelled(true);
             PlayerProfile profile = PlayerProfile.find(p).get();
             if (e.getRawSlot() == 49){
-
-                SlimefunGuide.openMainMenu(profile,SlimefunGuideMode.SURVIVAL_MODE, 1);
+                profile.getGuideHistory().goBack(Slimefun.getRegistry().getSlimefunGuide(SlimefunGuideMode.SURVIVAL_MODE));
+                // SlimefunGuide.openMainMenu(profile,SlimefunGuideMode.SURVIVAL_MODE, 1);
                 // SlimefunGuide.openMainMenuAsync(p, SlimefunGuideMode.SURVIVAL_MODE, 1);
             }
             else if(!e.getCurrentItem().equals(new ItemStack(Material.BLACK_STAINED_GLASS_PANE))){
