@@ -137,6 +137,14 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(Material.NETHER_STAR),new ItemStack(Material.END_CRYSTAL),
                 new ItemStack(Material.END_CRYSTAL),
                 new ItemStack(Material.SOUL_SAND),new ItemStack(Material.SOUL_SAND)},1000000000);
+        FusionCrafting.addRecipe("WYVERN_INJECTOR",
+                new ItemStack[]{new ItemStack(SlimefunItem.getById("BASIC_INJECTOR").getItem()),
+                new ItemStack(SlimefunItem.getById("WYVERN_INJECTOR").getItem()),FusionCrafting.getItemInjectortier(1),
+                new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem()),new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("DRACONIC_BLOCK").getItem())
+                ,new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND),
+                new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND)},25600);
         ErrorFile.setup();
         ErrorFile.get().addDefault("A-Number",0);
         // ErrorFile.get().addDefault("Overload-Nerf",0d);
@@ -199,6 +207,7 @@ public final class Draconic extends AbstractAddon {
             Slimefun.getRegistry().getSlimefunItemIds().remove("DRAGON_HEART");
             Slimefun.getRegistry().getSlimefunItemIds().remove("BASIC_INJECTOR");
             Slimefun.getRegistry().getSlimefunItemIds().remove("FUSION_CORE");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("WYVERN_INJECTOR");
         }
 
 
@@ -440,7 +449,7 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("WYVERN_INJECTOR") == null){
-            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_INJECTOR", Material.ORANGE_TERRACOTTA,
+            SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_INJECTOR", Material.ORANGE_TERRACOTTA,
                     "&dWyvern Fusion Injector",
                     "&9Fusion Crafting Injector");
             ItemStack[] recipe = {
