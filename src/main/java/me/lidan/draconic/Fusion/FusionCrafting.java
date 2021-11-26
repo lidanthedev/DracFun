@@ -642,12 +642,19 @@ public class FusionCrafting implements Listener, CommandExecutor{
         inv.setItem(44,items[10]);
          */
     }
-
+    @EventHandler
     public static void onInvOpen(InventoryOpenEvent e){
         Player p = (Player) e.getPlayer();
+        if (!p.getName().equalsIgnoreCase("LidanTheGamer_")) return;
         InventoryView view = e.getView();
+        p.sendMessage(view.getTitle());
         if (view.getTitle().contains("Slimefun Guide")){
-            if (view.getItem(10).isSimilar(SlimefunItem.getById("FUSION_CORE").getItem())){
+            // p.sendMessage("Slime fun guide!");
+            // p.sendMessage("slot 10 " + view.getItem(10));
+            // p.sendMessage("core " + SlimefunItem.getById("FUSION_CORE").getItem());
+            SlimefunItem slot10 = SlimefunItem.getByItem(view.getItem(10));
+            if (slot10.equals(SlimefunItem.getById("FUSION_CORE"))){
+                // p.sendMessage("Checking Fusion!");
                 viewRecipe(p,view.getItem(16));
             }
         }
