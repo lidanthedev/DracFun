@@ -145,6 +145,16 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem())
                 ,new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND),
                 new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND)},25600);
+        FusionCrafting.addRecipe("AWAKENED_DRACONIUM_BLOCK",
+                new ItemStack[]{new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem()),
+                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem()),FusionCrafting.getItemInjectortier(1),
+                new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("DRAGON_HEART").getItem())
+                ,new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
+                new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem())
+                ,new ItemStack(Material.AIR)},35000000);
         ErrorFile.setup();
         ErrorFile.get().addDefault("A-Number",0);
         // ErrorFile.get().addDefault("Overload-Nerf",0d);
@@ -208,6 +218,7 @@ public final class Draconic extends AbstractAddon {
             Slimefun.getRegistry().getSlimefunItemIds().remove("BASIC_INJECTOR");
             Slimefun.getRegistry().getSlimefunItemIds().remove("FUSION_CORE");
             Slimefun.getRegistry().getSlimefunItemIds().remove("WYVERN_INJECTOR");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_DRACONIUM_BLOCK");
         }
 
 
@@ -303,7 +314,7 @@ public final class Draconic extends AbstractAddon {
         if(SlimefunItem.getById("DRAGON_HEART") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("DRAGON_HEART", Material.RED_DYE,
                     "&6Dragon Heart",
-                    "&7Used to craft draconic items");
+                    "&7Used to craft draconic items","&7Obtained from killing a dragon");
             ItemStack[] recipe = {
                     null,null,null,
                     null,null,null,
@@ -314,6 +325,21 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         SlimefunItemStack DRAGON_HEART = (SlimefunItemStack) SlimefunItem.getById("DRAGON_HEART").getItem();
+
+        if(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK") == null){
+            SlimefunItemStack draconium_block = new SlimefunItemStack("AWAKENED_DRACONIUM_BLOCK", Material.PURPUR_BLOCK,
+                    "&6Awakened Draconium Block",
+                    "&7Used to craft draconic items");
+            ItemStack[] recipe = {
+                    DRACONIUM_INGOT, DRACONIUM_INGOT,DRACONIUM_INGOT,
+                    DRACONIUM_INGOT,DRACONIUM_INGOT,DRACONIUM_INGOT,
+                    DRACONIUM_INGOT,DRACONIUM_INGOT,DRACONIUM_INGOT
+            };
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, draconium_block,FusionCrafting.TYPE,
+                    recipe);
+            slimeitem.register(this);
+        }
+        SlimefunItemStack AWAKENED_DRACONIUM_BLOCK = (SlimefunItemStack) SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem();
 
         if(SlimefunItem.getById("WYVERN_HELMET") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_HELMET", Material.LEATHER_HELMET,
@@ -449,7 +475,7 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("WYVERN_INJECTOR") == null){
-            SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_INJECTOR", Material.ORANGE_TERRACOTTA,
+            SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_INJECTOR", Material.PURPLE_TERRACOTTA,
                     "&dWyvern Fusion Injector",
                     "&9Fusion Crafting Injector");
             ItemStack[] recipe = {

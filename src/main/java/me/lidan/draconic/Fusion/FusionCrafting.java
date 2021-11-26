@@ -345,7 +345,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
                 // SlimefunGuide.openMainMenuAsync(p, SlimefunGuideMode.SURVIVAL_MODE, 1);
             }
             else if(!e.getCurrentItem().equals(new ItemStack(Material.BLACK_STAINED_GLASS_PANE))){
-                SlimefunGuide.displayItem(profile,e.getCurrentItem(),false);
+                SlimefunGuide.displayItem(profile,e.getCurrentItem(),true);
             }
         }
         else if (invname.contains("§bFusion Crafting")){
