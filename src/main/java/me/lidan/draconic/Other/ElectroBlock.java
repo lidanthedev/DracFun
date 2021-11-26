@@ -1,12 +1,25 @@
 package me.lidan.draconic.Other;
 
+import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import me.lidan.draconic.Database.Database;
+import me.lidan.draconic.Draconic;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
+import org.bukkit.event.block.Action;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.Optional;
+
+import static me.lidan.draconic.Fusion.FusionCrafting.*;
 
 public class ElectroBlock extends SlimefunItem implements EnergyNetComponent {
     int capacity;
@@ -24,6 +37,81 @@ public class ElectroBlock extends SlimefunItem implements EnergyNetComponent {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    @Override
+    public void preRegister() {
+        BlockUseHandler blockUseHandler = this::onBlockRightClick;
+        addItemHandler(blockUseHandler);
+    }
+
+    private void onBlockRightClick(PlayerRightClickEvent e) {
+        Player p = e.getPlayer();
+        if (!p.getName().contains("LidanTheGamer")) {
+            return;
+        }
+        if (cooldowns.get(p) == null) {
+            cooldowns.put(p, System.currentTimeMillis() - 200);
+        }
+        if (System.currentTimeMillis() - cooldowns.get(p) <= 200) {
+            // p.sendMessage("Click cooldown " + (System.currentTimeMillis() - cooldowns.get(p)));
+            return;
+        }
+        Block block = e.getClickedBlock().get();
+        ItemStack tool = p.getInventory().getItemInMainHand();
+        // p.sendMessage("Interact 1");
+        // p.sendMessage(Draconic.blockdata.get(block.getLocation()));
+        HashMap<String, Object> blockdata = Database.select(block.getLocation());
+        // p.sendMessage("Interact 2");
+        if (blockdata.size() == 0) return;
+        e.cancel();
+        lockedBlocks.putIfAbsent(block.getLocation(), 0d);
+        if (lockedBlocks.get(block.getLocation()) == -1d) {
+            p.sendMessage("This block is locked " + block.getLocation());
+            return;
+        }
+        if (blockdata.get("type").toString().contains("Core")) {
+            if (System.currentTimeMillis() - cooldowns.get(p) <= 2000) return;
+            //TODO: fix stupid error with locking core [for now disabled]
+                /*
+                if (lockedBlocks.get(block.getLocation()) == 0) {
+                    p.sendMessage("click on core at " + block.getLocation());
+                    lockedBlocks.put(block.getLocation(), -1d);
+                }
+                 */
+            if (lockedBlocks.get(block.getLocation()) > 0) {
+                p.sendMessage("click on locked core at " + block.getLocation());
+            }
+            Draconic.allvars.put("openinv::" + p.getName(), block.getLocation().clone());
+            openInventory1(p, block.getLocation());
+            p.sendMessage("Interact 3");
+        } else if (blockdata.get("type").toString().contains("Injector")) {
+            ItemStack item = (ItemStack) blockdata.get("item");
+            // p.sendMessage("Interact 3");
+            if (item.getType() != Material.AIR) {
+                blockdata.put("item", new ItemStack(Material.AIR));
+                Draconic.giveItem(p, item);
+            }
+            if (tool.getType() != Material.AIR) {
+                e.cancel();
+
+                if (tool.getAmount() > 1) {
+                    tool.setAmount(tool.getAmount() - 1);
+                    p.getInventory().setItemInMainHand(tool);
+                } else {
+                    p.getInventory().removeItem(tool);
+                }
+                tool.setAmount(1);
+                blockdata.put("item", tool);
+            }
+            Database.setblock(block.getLocation(), blockdata);
+            createFusionHolo(block.getLocation(), 2);
+        }
+            /*
+             p.getOpenInventory().setItem();
+             p.getInventory();
+            */
+        cooldowns.put(p, System.currentTimeMillis());
     }
 
     @Override

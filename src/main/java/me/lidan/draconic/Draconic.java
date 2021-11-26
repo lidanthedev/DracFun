@@ -65,6 +65,7 @@ public final class Draconic extends AbstractAddon {
     public static Serializer DracSerializer = new Serializer();
     // public static BossBar bar = Bukkit.createBossBar("Test", BarColor.BLUE, BarStyle.SOLID);
     public static ItemGroup DraconicGroup;
+    public static AddonConfig cfg = null;
 
     public Draconic() {
         super("LidanTheDev", "DracFun", "master", "autoupdate");
@@ -85,7 +86,7 @@ public final class Draconic extends AbstractAddon {
     public void enable() {
         // Plugin startup logic
         try {
-            AddonConfig cfg = new AddonConfig(this.getDataFolder().getPath() + "/config.yml");
+            cfg = new AddonConfig(this.getDataFolder().getPath() + "/config.yml");
         } catch(Exception error){
             getLogger().severe("Error happened when loading config");
             error.printStackTrace();
@@ -113,7 +114,6 @@ public final class Draconic extends AbstractAddon {
         every5secs.runTaskAsynchronously(this);
         getCommand("aiflyto").setExecutor(new aiflycmd());
         getCommand("draconic").setExecutor(new DraconicCmd());
-
         //arry = {core,fused,injector,+8 items} 11 size 10 length
         FusionCrafting.addRecipe("test", new ItemStack[]{new ItemStack(Material.IRON_BLOCK),
                 new ItemStack(Material.DIAMOND_BLOCK),FusionCrafting.getItemInjectortier(1),
@@ -423,8 +423,8 @@ public final class Draconic extends AbstractAddon {
                     new ItemStack(Material.DIAMOND),DRACONIC_CORE,new ItemStack(Material.DIAMOND),
                     new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND),new ItemStack(Material.LAPIS_BLOCK)
             };
-            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
-                    recipe);
+            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe,10);
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("BASIC_INJECTOR") == null){

@@ -169,86 +169,93 @@ public class FusionCrafting implements Listener, CommandExecutor{
         return tier;
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
-    public void onInteract(PlayerInteractEvent e){
-        Player p = e.getPlayer();
-        if (e.isCancelled()){
-            return;
-        }
-        if (cooldowns.get(p) == null){
-            cooldowns.put(p,System.currentTimeMillis() - 200);
-        }
-        if (System.currentTimeMillis() - cooldowns.get(p) <= 200) {
-            // p.sendMessage("Click cooldown " + (System.currentTimeMillis() - cooldowns.get(p)));
-            return;
-        }
-        if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
-            p.sendMessage("useInteractedBlock + " + e.useInteractedBlock());
-            Block block = e.getClickedBlock();
-            ItemStack tool = p.getInventory().getItemInMainHand();
-            // p.sendMessage("Interact 1");
-            // p.sendMessage(Draconic.blockdata.get(block.getLocation()));
-            HashMap<String,Object> blockdata = Database.select(block.getLocation());
-            // p.sendMessage("Interact 2");
-            if (blockdata.size() == 0) return;
-            e.setCancelled(true);
-            lockedBlocks.putIfAbsent(e.getClickedBlock().getLocation(), 0d);
-            if (lockedBlocks.get(e.getClickedBlock().getLocation()) == -1d) {
-                p.sendMessage("This block is locked " + block.getLocation());
-                return;
-            }
-            if(blockdata.get("type").toString().contains("Core")){
-                if (System.currentTimeMillis() - cooldowns.get(p) <= 2000) return;
-                //TODO: fix stupid error with locking core [for now disabled]
-                /*
-                if (lockedBlocks.get(e.getClickedBlock().getLocation()) == 0) {
-                    p.sendMessage("click on core at " + e.getClickedBlock().getLocation());
-                    lockedBlocks.put(e.getClickedBlock().getLocation(), -1d);
-                }
-                 */
-                if (lockedBlocks.get(e.getClickedBlock().getLocation()) > 0){
-                    p.sendMessage("click on locked core at " + e.getClickedBlock().getLocation());
-                }
-                Draconic.allvars.put("openinv::" + p.getName(),e.getClickedBlock().getLocation().clone());
-                openInventory1(p, block.getLocation());
-                p.sendMessage("Interact 3");
-            }
-            else if(blockdata.get("type").toString().contains("Injector")){
-                ItemStack item = (ItemStack) blockdata.get("item");
-                // p.sendMessage("Interact 3");
-                if (item.getType() != Material.AIR){
-                    blockdata.put("item",new ItemStack(Material.AIR));
-                    Draconic.giveItem(p,item);
-                }
-                if(tool.getType() != Material.AIR){
-                    e.setCancelled(true);
 
-                    if (tool.getAmount() > 1) {
-                        tool.setAmount(tool.getAmount() - 1);
-                        p.getInventory().setItemInMainHand(tool);
-                    }
-                    else{
-                        p.getInventory().removeItem(tool);
-                    }
-                    tool.setAmount(1);
-                    blockdata.put("item",tool);
-                }
-                Database.setblock(block.getLocation(),blockdata);
-                createFusionHolo(block.getLocation(),2);
-            }
-            /*
-             p.getOpenInventory().setItem();
-             p.getInventory();
-            */
-        }
-        cooldowns.put(p,System.currentTimeMillis());
-        // TODO: finish fusion
-    }
+    // @EventHandler(priority = EventPriority.MONITOR)
+    // public void onInteract(PlayerInteractEvent e){
+    //     Player p = e.getPlayer();
+    //     if (e.useInteractedBlock() == Event.Result.DENY){
+    //         return;
+    //     }
+    //     if (!p.getName().contains("LidanTheGamer"))
+    //     {
+    //         return;
+    //     }
+    //     if (cooldowns.get(p) == null){
+    //         cooldowns.put(p,System.currentTimeMillis() - 200);
+    //     }
+    //     if (System.currentTimeMillis() - cooldowns.get(p) <= 200) {
+    //         // p.sendMessage("Click cooldown " + (System.currentTimeMillis() - cooldowns.get(p)));
+    //         return;
+    //     }
+    //     if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
+    //         p.sendMessage("useInteractedBlock + " + e.useInteractedBlock());
+    //         p.sendMessage("useItemInHand + " + e.useItemInHand());
+    //         p.sendMessage("isCancelled + " + e.isCancelled());
+    //         Block block = e.getClickedBlock();
+    //         ItemStack tool = p.getInventory().getItemInMainHand();
+    //         // p.sendMessage("Interact 1");
+    //         // p.sendMessage(Draconic.blockdata.get(block.getLocation()));
+    //         HashMap<String,Object> blockdata = Database.select(block.getLocation());
+    //         // p.sendMessage("Interact 2");
+    //         if (blockdata.size() == 0) return;
+    //         e.setCancelled(true);
+    //         lockedBlocks.putIfAbsent(e.getClickedBlock().getLocation(), 0d);
+    //         if (lockedBlocks.get(e.getClickedBlock().getLocation()) == -1d) {
+    //             p.sendMessage("This block is locked " + block.getLocation());
+    //             return;
+    //         }
+    //         if(blockdata.get("type").toString().contains("Core")){
+    //             if (System.currentTimeMillis() - cooldowns.get(p) <= 2000) return;
+    //             //TODO: fix stupid error with locking core [for now disabled]
+    //             /*
+    //             if (lockedBlocks.get(e.getClickedBlock().getLocation()) == 0) {
+    //                 p.sendMessage("click on core at " + e.getClickedBlock().getLocation());
+    //                 lockedBlocks.put(e.getClickedBlock().getLocation(), -1d);
+    //             }
+    //              */
+    //             if (lockedBlocks.get(e.getClickedBlock().getLocation()) > 0){
+    //                 p.sendMessage("click on locked core at " + e.getClickedBlock().getLocation());
+    //             }
+    //             Draconic.allvars.put("openinv::" + p.getName(),e.getClickedBlock().getLocation().clone());
+    //             openInventory1(p, block.getLocation());
+    //             p.sendMessage("Interact 3");
+    //         }
+    //         else if(blockdata.get("type").toString().contains("Injector")){
+    //             ItemStack item = (ItemStack) blockdata.get("item");
+    //             // p.sendMessage("Interact 3");
+    //             if (item.getType() != Material.AIR){
+    //                 blockdata.put("item",new ItemStack(Material.AIR));
+    //                 Draconic.giveItem(p,item);
+    //             }
+    //             if(tool.getType() != Material.AIR){
+    //                 e.setCancelled(true);
+    //
+    //                 if (tool.getAmount() > 1) {
+    //                     tool.setAmount(tool.getAmount() - 1);
+    //                     p.getInventory().setItemInMainHand(tool);
+    //                 }
+    //                 else{
+    //                     p.getInventory().removeItem(tool);
+    //                 }
+    //                 tool.setAmount(1);
+    //                 blockdata.put("item",tool);
+    //             }
+    //             Database.setblock(block.getLocation(),blockdata);
+    //             createFusionHolo(block.getLocation(),2);
+    //         }
+    //         /*
+    //          p.getOpenInventory().setItem();
+    //          p.getInventory();
+    //         */
+    //     }
+    //     cooldowns.put(p,System.currentTimeMillis());
+    //     // TODO: finish fusion
+    // }
 
     public static void openInventory1(Player p, Location location){
         Inventory inv = Bukkit.createInventory(p,54,"§bFusion Crafting");
-        for (int i = 0; i < 54; i++){
-            inv.setItem(i,new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
+        for (int i = 0; i < 54; i++) {
+            inv.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
         }
         p.sendMessage("openinv 1");
         new BukkitRunnable() {
