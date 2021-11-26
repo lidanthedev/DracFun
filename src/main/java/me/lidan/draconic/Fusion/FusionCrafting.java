@@ -270,7 +270,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
         for (int i = 0; i < 54; i++) {
             inv.setItem(i, new ItemStack(Material.BLACK_STAINED_GLASS_PANE));
         }
-        p.sendMessage("openinv 1");
+        // p.sendMessage("openinv 1");
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -350,8 +350,8 @@ public class FusionCrafting implements Listener, CommandExecutor{
         }
         else if (invname.contains("§bFusion Crafting")){
             Location blockloc = ((Location) Draconic.allvars.get("openinv::" + p.getName())).clone();
-            p.sendMessage("invname = " + invname + " rawslot " + e.getRawSlot() +
-                    " slot " + e.getSlot());
+            // p.sendMessage("invname = " + invname + " rawslot " + e.getRawSlot() +
+            //        " slot " + e.getSlot());
             ItemStack olditem = p.getOpenInventory().getItem(22);
 
             if (e.getRawSlot() >= 0 && e.getRawSlot() <= 53) { // clicked inside inventory
@@ -392,10 +392,19 @@ public class FusionCrafting implements Listener, CommandExecutor{
         Location hololoc = oblockloc.clone();
         blockloc.add(0.5,1,0.5);
         hololoc.add(0.5,2,0.5);
+        for (Player loop_player: Bukkit.getOnlinePlayers()) {
+            if (Draconic.allvars.get("openinv::" + loop_player.getName()) != null){
+                Location value = (Location) Draconic.allvars.get("openinv::" + loop_player.getName());
+                if (value == oblockloc) {
+                    loop_player.closeInventory();
+                }
+            }
+        }
         lockConnectedInjectors(oblockloc);
+        lockedBlocks.put(oblockloc,-1d);
         HashMap<String,Object> blockdata = Database.select(oblockloc);
         if (checkRecipe(items,recipename)){
-            p.sendMessage("Recipe work! " + recipename);
+            // p.sendMessage("Recipe work! " + recipename);
             EnergyBreaker breaker = new EnergyBreaker();
             Hologram craftingHologram = HologramsAPI.createHologram(Draconic.getInstance(), hololoc);
             TextLine line1 = craftingHologram.appendTextLine("&6Charging %");
@@ -430,6 +439,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
                     // p.sendMessage("Energy: " + energyGot + "/" + totalEnergy);
                     lockedBlocks.put(oblockloc,percentloaded);
                     if (energyGot >= totalEnergy) {
+                        craftingHologram.delete();
                         for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
                             if (holo.getLocation().distance(blockloc) < 5) {
                                 // holo.getLocation().subtract();
@@ -457,7 +467,6 @@ public class FusionCrafting implements Listener, CommandExecutor{
                                         Database.setblock(entry.getKey(), blockdata);
                                     }
                                 }
-                                craftingHologram.delete();
                                 lockedBlocks.put(oblockloc,0d);
                                 unlockConnectedInjectors(oblockloc);
                                 blockdata.put("item", getRecipe(recipename)[1]);
@@ -472,7 +481,8 @@ public class FusionCrafting implements Listener, CommandExecutor{
             return true;
         }
         else{
-            p.sendMessage("Recipe not work!");
+            // p.sendMessage("Recipe not work!");
+            lockedBlocks.put(oblockloc,0d);
             unlockConnectedInjectors(oblockloc);
             return false;
         }
@@ -508,7 +518,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
             HashMap<String,Object> blockdata = Database.select(blockloc);
             blockdata.put("item",newitem);
             Database.setblock(blockloc,blockdata);
-            p.sendMessage("saved item " + newitem + " at " + blockloc);
+            // p.sendMessage("saved item " + newitem + " at " + blockloc);
             createFusionHolo(blockloc,1);
             lockedBlocks.putIfAbsent(blockloc, 0d);
             p.sendMessage("locked " + lockedBlocks.get(blockloc));
