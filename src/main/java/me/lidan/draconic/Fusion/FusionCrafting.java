@@ -5,6 +5,7 @@ import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
 import io.github.mooy1.infinitylib.common.CoolDowns;
+import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -88,7 +89,8 @@ public class FusionCrafting implements Listener, CommandExecutor{
         for (String recipe: recipes.keySet()) {
             ItemStack result = recipes.get(recipe)[1];
             if (result.isSimilar(item)){
-                if (viewRecipe(p,result)){
+                // p.sendMessage("Found Recipe! " + recipe);
+                if (viewRecipe(p,recipe)){
                     return true;
                 }
             }
@@ -120,6 +122,12 @@ public class FusionCrafting implements Listener, CommandExecutor{
         ItemMeta meta = energyNeeded.getItemMeta();
         meta.setDisplayName("&aEnergy Required: " + recipepower.get(recipe) + " &7J ⚡");
         energyNeeded.setItemMeta(meta);
+        inv.setItem(31,energyNeeded);
+        ItemStack goBack = new ItemStack(Material.BARRIER);
+        ItemMeta goBackMeta = energyNeeded.getItemMeta();
+        goBackMeta.setDisplayName("&cGo back");
+        goBack.setItemMeta(goBackMeta);
+        inv.setItem(49,goBack);
         p.openInventory(inv);
         return true;
     }
@@ -655,7 +663,12 @@ public class FusionCrafting implements Listener, CommandExecutor{
             SlimefunItem slot10 = SlimefunItem.getByItem(view.getItem(10));
             if (slot10.equals(SlimefunItem.getById("FUSION_CORE"))){
                 // p.sendMessage("Checking Fusion!");
-                viewRecipe(p,view.getItem(16));
+                Scheduler.run(2, new Runnable() {
+                    @Override
+                    public void run() {
+                        viewRecipe(p,view.getItem(16));
+                    }
+                });
             }
         }
     }
