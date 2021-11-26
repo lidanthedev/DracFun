@@ -175,7 +175,7 @@ public final class Draconic extends AbstractAddon {
                 ,new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem())},9000000);
 
         FusionCrafting.addRecipe("DRACONIC_INJECTOR",
-                new ItemStack[]{FusionCrafting.getItemInjectortier(2),
+                new ItemStack[]{new ItemStack(SlimefunItem.getById("WYVERN_INJECTOR").getItem()),
                         new ItemStack(SlimefunItem.getById("DRACONIC_INJECTOR").getItem())
                         ,FusionCrafting.getItemInjectortier(2),
                         new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem()),
@@ -225,7 +225,7 @@ public final class Draconic extends AbstractAddon {
                         ,new ItemStack(SlimefunItem.getById("DRACONIC_ENERGY_CORE").getItem())},1280000);
         FusionCrafting.addRecipe("DRACONIC_BOOTS",
                 new ItemStack[]{SlimefunItem.getById("WYVERN_BOOTS").getItem(),
-                        new ItemStack(SlimefunItem.getById("DRACONIC_LEGGINGS").getItem())
+                        new ItemStack(SlimefunItem.getById("DRACONIC_BOOTS").getItem())
                         ,FusionCrafting.getItemInjectortier(3),
                         new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_INGOT").getItem()),
                         new ItemStack(Material.AIR),
@@ -627,7 +627,7 @@ public final class Draconic extends AbstractAddon {
             SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_LEGGINGS", Material.LEATHER_LEGGINGS,
                     "&6Draconic Leggings",
                     "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
-                    LoreBuilder.powerCharged(0,400000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
+                    LoreBuilder.powerCharged(0,800000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
                     "generate", "&7a shield that protects you", "&7against most attacks");
             LeatherArmorMeta lch = (LeatherArmorMeta)itemStack.getItemMeta();
             lch.setColor(DraconicColor);
@@ -638,7 +638,7 @@ public final class Draconic extends AbstractAddon {
                     null,null,null,
                     null,null,null
             };
-            DraconicArmorPiece DraconicLeggings = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,400000f,152,
+            DraconicArmorPiece DraconicLeggings = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,800000f,152,
                     FusionCrafting.TYPE);
             DraconicLeggings.register(this);
         }
@@ -646,7 +646,7 @@ public final class Draconic extends AbstractAddon {
             SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_BOOTS", Material.LEATHER_BOOTS,
                     "&6Draconic Boots",
                     "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
-                    LoreBuilder.powerCharged(0,400000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
+                    LoreBuilder.powerCharged(0,800000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
                     "generate", "&7a shield that protects you", "&7against most attacks");
             LeatherArmorMeta lch = (LeatherArmorMeta)itemStack.getItemMeta();
             lch.setColor(DraconicColor);
@@ -657,7 +657,7 @@ public final class Draconic extends AbstractAddon {
                     null,null,null,
                     null,null,null
             };
-            DraconicArmorPiece DraconicBoots = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,400000f,76,
+            DraconicArmorPiece DraconicBoots = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,800000f,76,
                     FusionCrafting.TYPE);
             DraconicBoots.register(this);
         }
