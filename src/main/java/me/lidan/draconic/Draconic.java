@@ -217,7 +217,7 @@ public final class Draconic extends AbstractAddon {
                     DRACONIUM_INGOT,DRACONIUM_INGOT,DRACONIUM_INGOT,
                     DRACONIUM_INGOT,DRACONIUM_INGOT,DRACONIUM_INGOT
             };
-            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, draconium_block,RecipeType.SMELTERY,
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, draconium_block,RecipeType.ENHANCED_CRAFTING_TABLE,
                     recipe);
             slimeitem.register(this);
             /*
@@ -252,7 +252,6 @@ public final class Draconic extends AbstractAddon {
         }
         SlimefunItemStack DRACONIC_CORE = (SlimefunItemStack) SlimefunItem.getById("DRACONIC_CORE").getItem();
 
-
         if(SlimefunItem.getById("WYVERN_CORE") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_CORE", Material.PINK_DYE,
                     "&dWyvern Core",
@@ -267,7 +266,7 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         SlimefunItemStack WYVERN_CORE = (SlimefunItemStack) SlimefunItem.getById("WYVERN_CORE").getItem();
-        
+
         if(SlimefunItem.getById("WYVERN_ENERGY_CORE") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_ENERGY_CORE", Material.MAGENTA_DYE,
                     "&dWyvern Energy Core",
@@ -298,6 +297,8 @@ public final class Draconic extends AbstractAddon {
         }
         SlimefunItemStack DRAGON_HEART = (SlimefunItemStack) SlimefunItem.getById("DRAGON_HEART").getItem();
 
+
+
         if(SlimefunItem.getById("WYVERN_HELMET") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_HELMET", Material.LEATHER_HELMET,
                     "&dWyvern Helmet",
@@ -316,7 +317,7 @@ public final class Draconic extends AbstractAddon {
             DraconicArmorPiece WyvernHelmet = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,400000f,38);
             WyvernHelmet.register(this);
         }
-        
+
         if(SlimefunItem.getById("WYVERN_CHESTPLATE") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_CHESTPLATE", Material.LEATHER_CHESTPLATE,
                     "&dWyvern Chestplate",
@@ -372,7 +373,7 @@ public final class Draconic extends AbstractAddon {
             WyvernBoots.register(this);
         }
 
-        
+
 
         if(SlimefunItem.getById("DRACONIC_ENERGY_INFUSER") == null) {
             SlimefunItemStack DRACONIC_ENERGY_INFUSER = new SlimefunItemStack(
