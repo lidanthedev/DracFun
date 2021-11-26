@@ -586,7 +586,7 @@ public final class Draconic extends AbstractAddon {
         Color DraconicColor = Color.fromRGB(245, 158, 7);
         if(SlimefunItem.getById("DRACONIC_HELMET") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_HELMET", Material.LEATHER_HELMET,
-                    "&dDraconic Helmet",
+                    "&6Draconic Helmet",
                     "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
                     LoreBuilder.powerCharged(0,800000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
                     "generate", "&7a shield that protects you", "&7against most attacks");
@@ -606,7 +606,7 @@ public final class Draconic extends AbstractAddon {
 
         if(SlimefunItem.getById("DRACONIC_CHESTPLATE") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_CHESTPLATE", Material.LEATHER_CHESTPLATE,
-                    "&dDraconic Chestplate",
+                    "&6Draconic Chestplate",
                     "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
                     LoreBuilder.powerCharged(0,800000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
                     "generate", "&7a shield that protects you", "&7against most attacks");
@@ -625,7 +625,7 @@ public final class Draconic extends AbstractAddon {
         }
         if(SlimefunItem.getById("DRACONIC_LEGGINGS") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_LEGGINGS", Material.LEATHER_LEGGINGS,
-                    "&dDraconic Leggings",
+                    "&6Draconic Leggings",
                     "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
                     LoreBuilder.powerCharged(0,400000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
                     "generate", "&7a shield that protects you", "&7against most attacks");
@@ -644,7 +644,7 @@ public final class Draconic extends AbstractAddon {
         }
         if(SlimefunItem.getById("DRACONIC_BOOTS") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_BOOTS", Material.LEATHER_BOOTS,
-                    "&dDraconic Boots",
+                    "&6Draconic Boots",
                     "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
                     LoreBuilder.powerCharged(0,400000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
                     "generate", "&7a shield that protects you", "&7against most attacks");
