@@ -239,6 +239,7 @@ public final class Draconic extends AbstractAddon {
             Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_DRACONIUM_BLOCK");
             Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_DRACONIUM_INGOT");
             Slimefun.getRegistry().getSlimefunItemIds().remove("AWAKENED_CORE");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIC_ENERGY_CORE");
         }
 
 
@@ -434,38 +435,6 @@ public final class Draconic extends AbstractAddon {
             WyvernBoots.register(this);
         }
 
-        if(SlimefunItem.getById("DRACONIC_ENERGY_INFUSER") == null) {
-            SlimefunItemStack DRACONIC_ENERGY_INFUSER = new SlimefunItemStack(
-                    "DRACONIC_ENERGY_INFUSER",
-                    Material.DRAGON_HEAD,
-                    "&6Draconic Energy Infuser",
-                    "&7Quickly charges items",
-                    "&8⇨ &e⚡ &750,000 J Per Second",
-                    "&8⇨ &e⚡ &7Energy Loss: &c50%"
-            );
-            new ChargingBench(DraconicGroup,DRACONIC_ENERGY_INFUSER , RecipeType.NULL, new ItemStack[] {
-                    DRACONIUM_INGOT, DRACONIUM_INGOT, DRACONIUM_INGOT,
-                    DRACONIUM_INGOT, SlimefunItems.CHARGING_BENCH, DRACONIUM_INGOT,
-                    DRACONIUM_INGOT, DRACONIUM_INGOT, DRACONIUM_INGOT,
-            }).setCapacity(10000).setEnergyConsumption(10000).setProcessingSpeed(30).register(this);
-        }
-
-        if(SlimefunItem.getById("DRACONIC_OP_ENERGY") == null) {
-            SlimefunItemStack DRACONIC_OP_ENERGY = new SlimefunItemStack(
-                    "DRACONIC_OP_ENERGY",
-                    Material.END_ROD,
-                    "&6Draconic Energy Generator",
-                    "&7Quickly Generate energy",
-                    "&8⇨ &e⚡ &71,000,000 J Per Second"
-            );
-            new SolarGenerator(DraconicGroup,1000000,1000000,DRACONIC_OP_ENERGY , RecipeType.ENHANCED_CRAFTING_TABLE,
-                    new ItemStack[] {
-                    endcrystal, endcrystal, endcrystal,
-                    endcrystal, SlimefunItems.SOLAR_GENERATOR_4, endcrystal,
-                    endcrystal, endcrystal, endcrystal,
-            }).register(this);
-        }
-
         if(SlimefunItem.getById("BASIC_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("BASIC_INJECTOR", Material.IRON_BLOCK,
                     "&fBasic Fusion Injector",
@@ -531,6 +500,116 @@ public final class Draconic extends AbstractAddon {
         SlimefunItemStack AWAKENED_CORE =
                 (SlimefunItemStack) SlimefunItem.getById("AWAKENED_CORE").getItem();
 
+        if(SlimefunItem.getById("DRACONIC_ENERGY_CORE") == null){
+            SlimefunItemStack draconic_energy_core = new SlimefunItemStack("DRACONIC_ENERGY_CORE",
+                    Material.POTTED_ORANGE_TULIP,
+                    "&6Draconic Energy Core",
+                    "&7Used to craft draconic items");
+            ItemStack[] recipe = {
+                    AWAKENED_DRACONIUM_INGOT,WYVERN_ENERGY_CORE,AWAKENED_DRACONIUM_INGOT,
+                    WYVERN_ENERGY_CORE,WYVERN_CORE,WYVERN_ENERGY_CORE,
+                    AWAKENED_DRACONIUM_INGOT,WYVERN_ENERGY_CORE,AWAKENED_DRACONIUM_INGOT
+            };
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, draconic_energy_core,RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe);
+            slimeitem.register(this);
+        }
+        SlimefunItemStack DRACONIC_ENERGY_CORE =
+                (SlimefunItemStack) SlimefunItem.getById("DRACONIC_ENERGY_CORE").getItem();
+
+        Color DraconicColor = Color.fromRGB(245, 158, 7);
+        if(SlimefunItem.getById("DRACONIC_HELMET") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_HELMET", Material.LEATHER_HELMET,
+                    "&dDraconic Helmet",
+                    "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
+                    LoreBuilder.powerCharged(0,800000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
+                    "generate", "&7a shield that protects you", "&7against most attacks");
+            LeatherArmorMeta lch = (LeatherArmorMeta)itemStack.getItemMeta();
+            lch.setColor(DraconicColor);
+            lch.setUnbreakable(true);
+            itemStack.setItemMeta(lch);
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            DraconicArmorPiece DraconicHelmet = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,800000f,76,
+                    FusionCrafting.TYPE);
+            DraconicHelmet.register(this);
+        }
+
+        if(SlimefunItem.getById("DRACONIC_CHESTPLATE") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_CHESTPLATE", Material.LEATHER_CHESTPLATE,
+                    "&dDraconic Chestplate",
+                    "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
+                    LoreBuilder.powerCharged(0,800000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
+                    "generate", "&7a shield that protects you", "&7against most attacks");
+            LeatherArmorMeta lch = (LeatherArmorMeta)itemStack.getItemMeta();
+            lch.setColor(DraconicColor);
+            lch.setUnbreakable(true);
+            itemStack.setItemMeta(lch);
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            DraconicArmorPiece DraconicChestplate = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,800000f,
+                    204,FusionCrafting.TYPE);
+            DraconicChestplate.register(this);
+        }
+        if(SlimefunItem.getById("DRACONIC_LEGGINGS") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_LEGGINGS", Material.LEATHER_LEGGINGS,
+                    "&dDraconic Leggings",
+                    "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
+                    LoreBuilder.powerCharged(0,400000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
+                    "generate", "&7a shield that protects you", "&7against most attacks");
+            LeatherArmorMeta lch = (LeatherArmorMeta)itemStack.getItemMeta();
+            lch.setColor(DraconicColor);
+            lch.setUnbreakable(true);
+            itemStack.setItemMeta(lch);
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            DraconicArmorPiece DraconicLeggings = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,400000f,152,
+                    FusionCrafting.TYPE);
+            DraconicLeggings.register(this);
+        }
+        if(SlimefunItem.getById("DRACONIC_BOOTS") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_BOOTS", Material.LEATHER_BOOTS,
+                    "&dDraconic Boots",
+                    "&6Upgrades:", "&3J Capacity &6-", "&3Shield Capacity &6-", "&3Shield Recovery &6-","",
+                    LoreBuilder.powerCharged(0,400000), "", "&6Item Ability: Shield", "&7Uses Electric Power to " +
+                    "generate", "&7a shield that protects you", "&7against most attacks");
+            LeatherArmorMeta lch = (LeatherArmorMeta)itemStack.getItemMeta();
+            lch.setColor(DraconicColor);
+            lch.setUnbreakable(true);
+            itemStack.setItemMeta(lch);
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            DraconicArmorPiece DraconicBoots = new DraconicArmorPiece(DraconicGroup, itemStack, recipe,400000f,76,
+                    FusionCrafting.TYPE);
+            DraconicBoots.register(this);
+        }
+        
+        if(SlimefunItem.getById("BASIC_INJECTOR") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("BASIC_INJECTOR", Material.IRON_BLOCK,
+                    "&FBasic Fusion Injector",
+                    "&9Fusion Crafting Injector");
+            ItemStack[] recipe = {
+                    endcrystal,endcrystal,endcrystal,
+                    endcrystal,new ItemStack(Material.IRON_BLOCK),endcrystal,
+                    endcrystal,endcrystal,endcrystal
+            };
+            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe,400000);
+            slimeitem.register(this);
+        }
+
         if(SlimefunItem.getById("WYVERN_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_INJECTOR", Material.PURPLE_TERRACOTTA,
                     "&dWyvern Fusion Injector",
@@ -570,18 +649,36 @@ public final class Draconic extends AbstractAddon {
                     recipe,1000000);
             slimeitem.register(this);
         }
-        if(SlimefunItem.getById("BASIC_INJECTOR") == null){
-            SlimefunItemStack itemStack = new SlimefunItemStack("BASIC_INJECTOR", Material.IRON_BLOCK,
-                    "&FBasic Fusion Injector",
-                    "&9Fusion Crafting Injector");
-            ItemStack[] recipe = {
-                    endcrystal,endcrystal,endcrystal,
-                    endcrystal,new ItemStack(Material.IRON_BLOCK),endcrystal,
-                    endcrystal,endcrystal,endcrystal
-            };
-            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
-                    recipe,400000);
-            slimeitem.register(this);
+        if(SlimefunItem.getById("DRACONIC_ENERGY_INFUSER") == null) {
+            SlimefunItemStack DRACONIC_ENERGY_INFUSER = new SlimefunItemStack(
+                    "DRACONIC_ENERGY_INFUSER",
+                    Material.DRAGON_HEAD,
+                    "&6Draconic Energy Infuser",
+                    "&7Quickly charges items",
+                    "&8⇨ &e⚡ &750,000 J Per Second",
+                    "&8⇨ &e⚡ &7Energy Loss: &c50%"
+            );
+            new ChargingBench(DraconicGroup,DRACONIC_ENERGY_INFUSER , RecipeType.NULL, new ItemStack[] {
+                    AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT,
+                    AWAKENED_DRACONIUM_INGOT, SlimefunItems.CHARGING_BENCH, AWAKENED_DRACONIUM_INGOT,
+                    AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT,
+            }).setCapacity(10000).setEnergyConsumption(10000).setProcessingSpeed(30).register(this);
+        }
+
+        if(SlimefunItem.getById("DRACONIC_OP_ENERGY") == null) {
+            SlimefunItemStack DRACONIC_OP_ENERGY = new SlimefunItemStack(
+                    "DRACONIC_OP_ENERGY",
+                    Material.END_ROD,
+                    "&6Draconic Energy Generator",
+                    "&7Quickly Generate energy",
+                    "&8⇨ &e⚡ &7100,000 J Per Second","&cIn the day only!"
+            );
+            new SolarGenerator(DraconicGroup,100000,0,DRACONIC_OP_ENERGY , RecipeType.ENHANCED_CRAFTING_TABLE,
+                    new ItemStack[] {
+                            AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
+                            AWAKENED_DRACONIUM_BLOCK, SlimefunItems.SOLAR_GENERATOR_4, endcrystal,
+                            AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
+                    }).register(this);
         }
     }
 

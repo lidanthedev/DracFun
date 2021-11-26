@@ -21,6 +21,12 @@ public class DraconicArmorPiece extends SlimefunItem implements Rechargeable {
         this.shield = shield;
         this.capacity = capacity;
     }
+    public DraconicArmorPiece(ItemGroup category, SlimefunItemStack item, ItemStack[] recipe, float capacity,
+                              double shield,RecipeType type) {
+        super(category, item, type, recipe);
+        this.shield = shield;
+        this.capacity = capacity;
+    }
 
     /*
     @Override

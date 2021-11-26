@@ -57,7 +57,6 @@ public class FusionCrafting implements Listener, CommandExecutor{
 
     public static HashMap<Player, Long> cooldowns = new HashMap<>();
 
-
     public final static Integer DEFAULT_ENERGY_COST = 100000;
     public static void addRecipe(String recipe,ItemStack[] items){
         addRecipe(recipe,items,DEFAULT_ENERGY_COST);
