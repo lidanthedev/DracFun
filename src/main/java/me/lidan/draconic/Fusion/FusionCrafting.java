@@ -314,10 +314,16 @@ public class FusionCrafting implements Listener, CommandExecutor{
             Player p = (Player) e.getPlayer();
             Database.delete(blockloc);
             for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
-                if (holo.getLocation().distance(e.getBlock().getLocation()) < 1.5) {
+                double distance = holo.getLocation().distance(e.getBlock().getLocation());
+                if (distance < 2.5d) {
                     holo.delete();
                     break;
                 }
+                /*
+                else {
+                    p.sendMessage("holo at " + holo.getLocation() + " distance=" + distance);
+                }
+                 */
             }
         }
     }
@@ -521,17 +527,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
             // p.sendMessage("saved item " + newitem + " at " + blockloc);
             createFusionHolo(blockloc,1);
             lockedBlocks.putIfAbsent(blockloc, 0d);
-            p.sendMessage("locked " + lockedBlocks.get(blockloc));
-            if (lockedBlocks.get(blockloc) == -1d) {
-                lockedBlocks.put(blockloc, 0d);
-            }
-            new BukkitRunnable(){
-
-                @Override
-                public void run() {
-                    p.sendMessage("NEW locked " + lockedBlocks.get(blockloc));
-                }
-            }.runTaskLater(Draconic.getInstance(),10L);
+            // p.sendMessage("locked " + lockedBlocks.get(blockloc));
         }
     }
 
@@ -543,6 +539,11 @@ public class FusionCrafting implements Listener, CommandExecutor{
             if (entry.getValue().equals(center)) {
                 System.out.println("connectedinjector found");
                 injectors.add(center.getWorld().getBlockAt(entry.getKey()));
+            }
+            HashMap<String,Object> blockdata = Database.select(entry.getKey());
+            if (blockdata.size() == 0){
+                connectedInjectors.remove(entry.getKey());
+                injectors.remove(center.getWorld().getBlockAt(entry.getKey()));
             }
         }
         int itemIndex = 0;

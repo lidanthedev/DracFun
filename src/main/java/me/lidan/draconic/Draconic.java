@@ -145,9 +145,13 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem())
                 ,new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND),
                 new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND)},25600);
+
+        ItemStack AWAKENED_DRACONIUM_BLOCK_4 = new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem());
+        AWAKENED_DRACONIUM_BLOCK_4.setAmount(4);
+        ItemStack DRACONIUM_BLOCK_4 = new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem());
+        DRACONIUM_BLOCK_4.setAmount(4);
         FusionCrafting.addRecipe("AWAKENED_DRACONIUM_BLOCK",
-                new ItemStack[]{new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem()),
-                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem())
+                new ItemStack[]{DRACONIUM_BLOCK_4, AWAKENED_DRACONIUM_BLOCK_4
                 ,FusionCrafting.getItemInjectortier(2),
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
