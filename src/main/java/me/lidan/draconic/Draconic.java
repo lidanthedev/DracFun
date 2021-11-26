@@ -94,7 +94,6 @@ public final class Draconic extends AbstractAddon {
         Database.initDatabase();
         getServer().getPluginManager().registerEvents(new Damage(),this);
         getServer().getPluginManager().registerEvents(new Interact(),this);
-        getServer().getPluginManager().registerEvents(new FusionCrafting(),this);
         getServer().getPluginManager().registerEvents(new Death(),this);
         everytick.runTaskTimer(this,0L,5L);
         every5secs.runTaskAsynchronously(this);
@@ -139,6 +138,7 @@ public final class Draconic extends AbstractAddon {
          */
         try {
             setup();
+            getServer().getPluginManager().registerEvents(new FusionCrafting(),this);
         } catch (Exception error){
             getLogger().severe("Error happened when loading items");
             error.printStackTrace();
@@ -190,6 +190,7 @@ public final class Draconic extends AbstractAddon {
             Slimefun.getRegistry().getSlimefunItemIds().remove("DRACONIUM_BLOCK");
             Slimefun.getRegistry().getSlimefunItemIds().remove("DRAGON_HEART");
             Slimefun.getRegistry().getSlimefunItemIds().remove("BASIC_INJECTOR");
+            Slimefun.getRegistry().getSlimefunItemIds().remove("FUSION_CORE");
         }
 
 
