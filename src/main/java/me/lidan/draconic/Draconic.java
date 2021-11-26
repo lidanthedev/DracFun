@@ -142,7 +142,7 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(SlimefunItem.getById("WYVERN_INJECTOR").getItem()),FusionCrafting.getItemInjectortier(1),
                 new ItemStack(SlimefunItem.getById("WYVERN_CORE").getItem()),new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
-                new ItemStack(SlimefunItem.getById("DRACONIC_BLOCK").getItem())
+                new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem())
                 ,new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND),
                 new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND)},25600);
         ErrorFile.setup();
