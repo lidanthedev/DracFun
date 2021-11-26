@@ -4,6 +4,7 @@ import me.lidan.draconic.Draconic;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Sound;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -17,6 +18,12 @@ public class Damage implements Listener {
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = false)
     public void OnDamage(EntityDamageEvent e){
         if (e.getEntity() instanceof Player){
+            double multi = 2;
+            if (e instanceof EntityDamageByEntityEvent){
+                EntityDamageByEntityEvent eb = (EntityDamageByEntityEvent) e;
+                if (eb.getDamager().getType() == EntityType.PLAYER)
+                    multi = 5;
+            }
             Player p = (Player)e.getEntity();
             Double damage = e.getFinalDamage();
             Double shield = (Double)Draconic.vars.get("shield::" + p.getName());
@@ -27,7 +34,7 @@ public class Damage implements Listener {
                 if(ov >= 1d){
                     e.setDamage(damage * (1d + ov/100));
                 }
-                shield = shield - e.getDamage()*5;
+                shield = shield - e.getDamage()*multi;
                 if (shield < 0){
                     shield = 0d;
                 }

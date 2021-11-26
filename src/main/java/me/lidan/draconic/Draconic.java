@@ -859,6 +859,8 @@ public final class Draconic extends AbstractAddon {
         bars.get(p).setTitle(
                 "§b" + numberFormat.format(shield) + "/" + numberFormat.format(mshield) + " §c" + numberFormat.format(ov) + "%" + " " +
                         "§a" + (BigNumber(en)) + "/" + (BigNumber(men)) + " J");
+        double progress = shield/mshield;
+        bars.get(p).setProgress(progress);
     }
 
     public static String CommaNumberFormat(long number) {

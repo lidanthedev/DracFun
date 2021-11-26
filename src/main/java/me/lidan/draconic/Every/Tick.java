@@ -29,16 +29,6 @@ public class Tick extends BukkitRunnable {
                 vars.put("up_sr::" + p.getName(),5d);
                 vars.put("set::" + p.getName(),0d);
             }
-            if (vars.get("set::" + p.getName()) == 0){
-                vars.put("energy::" + p.getName(), (double) Draconic.getArmorEnergyForPlayer(p));
-                vars.put("maxenergy::" + p.getName(),(double) Draconic.getMaxArmorEnergyForPlayer(p));
-                vars.put("maxshield::" + p.getName(), Draconic.getMaxShieldForPlayer(p));
-                vars.put("up_sr::" + p.getName(),5d);
-            }
-            if (bars.get(p) == null) {
-                bars.put(p,Bukkit.createBossBar("Draconic",BarColor.BLUE,BarStyle.SOLID));
-            }
-
             Double shield = vars.get("shield::" + p.getName());
             Double mshield = vars.get("maxshield::" + p.getName());
             Double ov = vars.get("overload::" + p.getName());
@@ -46,14 +36,23 @@ public class Tick extends BukkitRunnable {
             Double en = vars.get("energy::" + p.getName());
             Double men = vars.get("maxenergy::" + p.getName());
             Double up_sr = vars.get("up_sr::" + p.getName());
-            if (shield > mshield){
-                vars.put("shield::" + p.getName(),mshield);
+            if (bars.get(p) == null) {
+                bars.put(p,Bukkit.createBossBar("Draconic",BarColor.BLUE,BarStyle.SOLID));
             }
-            if (mshield > 0){
-                bars.get(p).addPlayer(p);
-            }
-            else{
-                bars.get(p).removePlayer(p);
+            if (vars.get("set::" + p.getName()) == 0){
+                vars.put("energy::" + p.getName(), (double) Draconic.getArmorEnergyForPlayer(p));
+                vars.put("maxenergy::" + p.getName(),(double) Draconic.getMaxArmorEnergyForPlayer(p));
+                vars.put("maxshield::" + p.getName(), Draconic.getMaxShieldForPlayer(p));
+                vars.put("up_sr::" + p.getName(),5d);
+                if (shield > mshield){
+                    vars.put("shield::" + p.getName(),mshield);
+                }
+                if (mshield > 0){
+                    bars.get(p).addPlayer(p);
+                }
+                else{
+                    bars.get(p).removePlayer(p);
+                }
             }
             if (ov >= 100d){
                 up_sr = 0d;
