@@ -172,7 +172,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent e){
         Player p = e.getPlayer();
-        if (e.useInteractedBlock() == Event.Result.DENY){
+        if (e.isCancelled()){
             return;
         }
         if (cooldowns.get(p) == null){
@@ -183,7 +183,6 @@ public class FusionCrafting implements Listener, CommandExecutor{
             return;
         }
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
-            p.sendMessage("useInteractedBlock + " + e.useInteractedBlock());
             Block block = e.getClickedBlock();
             ItemStack tool = p.getInventory().getItemInMainHand();
             // p.sendMessage("Interact 1");
