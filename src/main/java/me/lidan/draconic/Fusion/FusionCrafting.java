@@ -183,6 +183,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
             return;
         }
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK){
+            p.sendMessage("useInteractedBlock + " + e.useInteractedBlock());
             Block block = e.getClickedBlock();
             ItemStack tool = p.getInventory().getItemInMainHand();
             // p.sendMessage("Interact 1");

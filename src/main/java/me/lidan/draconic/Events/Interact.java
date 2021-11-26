@@ -10,6 +10,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
@@ -24,9 +25,12 @@ import java.util.Date;
 import java.util.HashMap;
 
 public class Interact implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGHEST)
     public void onInteract(PlayerInteractEvent e) {
         Player p = e.getPlayer();
+        if (e.isCancelled()){
+            return;
+        }
         String iname = "";
         try{
             iname = p.getInventory().getItemInMainHand().getItemMeta().getDisplayName();
