@@ -327,15 +327,15 @@ public final class Draconic extends AbstractAddon {
         SlimefunItemStack DRAGON_HEART = (SlimefunItemStack) SlimefunItem.getById("DRAGON_HEART").getItem();
 
         if(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK") == null){
-            SlimefunItemStack draconium_block = new SlimefunItemStack("AWAKENED_DRACONIUM_BLOCK", Material.PURPUR_BLOCK,
+            SlimefunItemStack awakened_draconium_block = new SlimefunItemStack("AWAKENED_DRACONIUM_BLOCK", Material.PURPUR_BLOCK,
                     "&6Awakened Draconium Block",
                     "&7Used to craft draconic items");
             ItemStack[] recipe = {
-                    DRACONIUM_INGOT, DRACONIUM_INGOT,DRACONIUM_INGOT,
-                    DRACONIUM_INGOT,DRACONIUM_INGOT,DRACONIUM_INGOT,
-                    DRACONIUM_INGOT,DRACONIUM_INGOT,DRACONIUM_INGOT
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
             };
-            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, draconium_block,FusionCrafting.TYPE,
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, awakened_draconium_block,FusionCrafting.TYPE,
                     recipe);
             slimeitem.register(this);
         }
