@@ -147,7 +147,8 @@ public final class Draconic extends AbstractAddon {
                 new ItemStack(Material.DIAMOND),new ItemStack(Material.DIAMOND)},25600);
         FusionCrafting.addRecipe("AWAKENED_DRACONIUM_BLOCK",
                 new ItemStack[]{new ItemStack(SlimefunItem.getById("DRACONIUM_BLOCK").getItem()),
-                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem()),FusionCrafting.getItemInjectortier(1),
+                new ItemStack(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem())
+                ,FusionCrafting.getItemInjectortier(2),
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
                 new ItemStack(SlimefunItem.getById("DRACONIC_CORE").getItem()),
                 new ItemStack(SlimefunItem.getById("DRAGON_HEART").getItem())
@@ -311,6 +312,20 @@ public final class Draconic extends AbstractAddon {
         }
         SlimefunItemStack WYVERN_ENERGY_CORE = (SlimefunItemStack) SlimefunItem.getById("WYVERN_ENERGY_CORE").getItem();
 
+        if(SlimefunItem.getById("FUSION_CORE") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("FUSION_CORE", Material.GLASS,
+                    "&bFusion Crafting Core",
+                    "&9Fusion Crafting Core");
+            ItemStack[] recipe = {
+                    new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND), new ItemStack(Material.LAPIS_BLOCK),
+                    new ItemStack(Material.DIAMOND),DRACONIC_CORE,new ItemStack(Material.DIAMOND),
+                    new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND),new ItemStack(Material.LAPIS_BLOCK)
+            };
+            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe,10);
+            slimeitem.register(this);
+        }
+
         if(SlimefunItem.getById("DRAGON_HEART") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("DRAGON_HEART", Material.RED_DYE,
                     "&6Dragon Heart",
@@ -325,21 +340,6 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         SlimefunItemStack DRAGON_HEART = (SlimefunItemStack) SlimefunItem.getById("DRAGON_HEART").getItem();
-
-        if(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK") == null){
-            SlimefunItemStack awakened_draconium_block = new SlimefunItemStack("AWAKENED_DRACONIUM_BLOCK", Material.PURPUR_BLOCK,
-                    "&6Awakened Draconium Block",
-                    "&7Used to craft draconic items");
-            ItemStack[] recipe = {
-                    null,null,null,
-                    null,null,null,
-                    null,null,null
-            };
-            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, awakened_draconium_block,FusionCrafting.TYPE,
-                    recipe);
-            slimeitem.register(this);
-        }
-        SlimefunItemStack AWAKENED_DRACONIUM_BLOCK = (SlimefunItemStack) SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem();
 
         if(SlimefunItem.getById("WYVERN_HELMET") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_HELMET", Material.LEATHER_HELMET,
@@ -415,8 +415,6 @@ public final class Draconic extends AbstractAddon {
             WyvernBoots.register(this);
         }
 
-
-
         if(SlimefunItem.getById("DRACONIC_ENERGY_INFUSER") == null) {
             SlimefunItemStack DRACONIC_ENERGY_INFUSER = new SlimefunItemStack(
                     "DRACONIC_ENERGY_INFUSER",
@@ -448,19 +446,7 @@ public final class Draconic extends AbstractAddon {
                     endcrystal, endcrystal, endcrystal,
             }).register(this);
         }
-        if(SlimefunItem.getById("FUSION_CORE") == null){
-            SlimefunItemStack itemStack = new SlimefunItemStack("FUSION_CORE", Material.GLASS,
-                    "&bFusion Crafting Core",
-                    "&9Fusion Crafting Core");
-            ItemStack[] recipe = {
-                    new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND), new ItemStack(Material.LAPIS_BLOCK),
-                    new ItemStack(Material.DIAMOND),DRACONIC_CORE,new ItemStack(Material.DIAMOND),
-                    new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND),new ItemStack(Material.LAPIS_BLOCK)
-            };
-            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
-                    recipe,10);
-            slimeitem.register(this);
-        }
+
         if(SlimefunItem.getById("BASIC_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("BASIC_INJECTOR", Material.IRON_BLOCK,
                     "&fBasic Fusion Injector",
@@ -474,6 +460,22 @@ public final class Draconic extends AbstractAddon {
                     recipe,50000);
             slimeitem.register(this);
         }
+        if(SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK") == null){
+            SlimefunItemStack awakened_draconium_block = new SlimefunItemStack("AWAKENED_DRACONIUM_BLOCK",
+                    Material.ORANGE_TERRACOTTA,
+                    "&6Awakened Draconium Block",
+                    "&7Used to craft draconic items");
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, awakened_draconium_block,FusionCrafting.TYPE,
+                    recipe);
+            slimeitem.register(this);
+        }
+        SlimefunItemStack AWAKENED_DRACONIUM_BLOCK = (SlimefunItemStack) SlimefunItem.getById("AWAKENED_DRACONIUM_BLOCK").getItem();
+
         if(SlimefunItem.getById("WYVERN_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_INJECTOR", Material.PURPLE_TERRACOTTA,
                     "&dWyvern Fusion Injector",
@@ -488,7 +490,7 @@ public final class Draconic extends AbstractAddon {
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("DRACONIC_INJECTOR") == null){
-            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_INJECTOR", Material.ORANGE_TERRACOTTA,
+            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_INJECTOR", Material.ORANGE_CONCRETE,
                     "&6Draconic Fusion Injector",
                     "&9Fusion Crafting Injector");
             ItemStack[] recipe = {
