@@ -406,6 +406,19 @@ public final class Draconic extends AbstractAddon {
                     endcrystal, endcrystal, endcrystal,
             }).register(this);
         }
+        if(SlimefunItem.getById("FUSION_CORE") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("FUSION_CORE", Material.GLASS,
+                    "&bFusion Crafting Core",
+                    "&9Fusion Crafting Injector");
+            ItemStack[] recipe = {
+                    new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND), new ItemStack(Material.LAPIS_BLOCK),
+                    new ItemStack(Material.DIAMOND),DRACONIC_CORE,new ItemStack(Material.DIAMOND),
+                    new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND),new ItemStack(Material.LAPIS_BLOCK)
+            };
+            SlimefunItem slimeitem = new SlimefunItem(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
+                    recipe);
+            slimeitem.register(this);
+        }
         if(SlimefunItem.getById("BASIC_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("BASIC_INJECTOR", Material.IRON_BLOCK,
                     "&fBasic Fusion Injector",

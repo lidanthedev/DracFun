@@ -42,7 +42,7 @@ import java.util.*;
 public class FusionCrafting implements Listener, CommandExecutor{
 
     public static final RecipeType TYPE = new RecipeType(Draconic.createKey("Fusion_Crafting"),SlimefunItem.getById(
-            "CHAOTIC_INJECTOR").getItem());
+            "FUSION_CORE").getItem());
 
     public static HashMap<String, ItemStack[]> recipes = new HashMap<String, ItemStack[]>();
     public static HashMap<String, Integer> recipepower = new HashMap<>();
@@ -50,7 +50,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
     public static HashMap<Player, Long> cooldowns = new HashMap<>();
 
 
-    public final static Integer DEFAULT_ENERGY_COST = 1000000;
+    public final static Integer DEFAULT_ENERGY_COST = 100000;
     public static void addRecipe(String recipe,ItemStack[] items){
         addRecipe(recipe,items,DEFAULT_ENERGY_COST);
     }
