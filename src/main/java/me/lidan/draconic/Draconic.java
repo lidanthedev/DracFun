@@ -22,6 +22,7 @@ import io.github.thebusybiscuit.slimefun4.implementation.SlimefunItems;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.generators.SolarGenerator;
 import io.github.thebusybiscuit.slimefun4.implementation.items.electric.machines.ChargingBench;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.config.Config;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import io.github.thebusybiscuit.slimefun4.utils.LoreBuilder;
 import me.lidan.draconic.Commands.aiflycmd;
 import me.lidan.draconic.Commands.DraconicCmd;
@@ -305,8 +306,6 @@ public final class Draconic extends AbstractAddon {
         }
         SlimefunItemStack DRAGON_HEART = (SlimefunItemStack) SlimefunItem.getById("DRAGON_HEART").getItem();
 
-
-
         if(SlimefunItem.getById("WYVERN_HELMET") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("WYVERN_HELMET", Material.LEATHER_HELMET,
                     "&dWyvern Helmet",
@@ -417,7 +416,7 @@ public final class Draconic extends AbstractAddon {
         if(SlimefunItem.getById("FUSION_CORE") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("FUSION_CORE", Material.GLASS,
                     "&bFusion Crafting Core",
-                    "&9Fusion Crafting Injector");
+                    "&9Fusion Crafting Core");
             ItemStack[] recipe = {
                     new ItemStack(Material.LAPIS_BLOCK),new ItemStack(Material.DIAMOND), new ItemStack(Material.LAPIS_BLOCK),
                     new ItemStack(Material.DIAMOND),DRACONIC_CORE,new ItemStack(Material.DIAMOND),
@@ -437,7 +436,20 @@ public final class Draconic extends AbstractAddon {
                     new ItemStack(Material.STONE),new ItemStack(Material.STONE),new ItemStack(Material.STONE)
             };
             ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
-                    recipe,100000);
+                    recipe,50000);
+            slimeitem.register(this);
+        }
+        if(SlimefunItem.getById("WYVERN_INJECTOR") == null){
+            SlimefunItemStack itemStack = new SlimefunItemStack("DRACONIC_INJECTOR", Material.ORANGE_TERRACOTTA,
+                    "&dWyvern Fusion Injector",
+                    "&9Fusion Crafting Injector");
+            ItemStack[] recipe = {
+                    null,null,null,
+                    null,null,null,
+                    null,null,null
+            };
+            ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,FusionCrafting.TYPE,
+                    recipe,250000);
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("DRACONIC_INJECTOR") == null){
@@ -450,7 +462,7 @@ public final class Draconic extends AbstractAddon {
                     endcrystal,endcrystal,endcrystal
             };
             ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,RecipeType.ENHANCED_CRAFTING_TABLE,
-                    recipe,400000);
+                    recipe,500000);
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("CHAOTIC_INJECTOR") == null){
@@ -463,7 +475,7 @@ public final class Draconic extends AbstractAddon {
                     endcrystal,endcrystal,endcrystal
             };
             ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,FusionCrafting.TYPE,
-                    recipe,500000);
+                    recipe,1000000);
             slimeitem.register(this);
         }
         if(SlimefunItem.getById("BASIC_INJECTOR") == null){
@@ -504,6 +516,10 @@ public final class Draconic extends AbstractAddon {
             worked = false;
         }
         return worked;
+    }
+
+    public static boolean canBuildAt(Player p, Block b, Interaction inter){
+        return Slimefun.getProtectionManager().hasPermission(p, b, inter);
     }
 
     public static float getArmorMaxEnergy(ItemStack item){

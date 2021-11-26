@@ -4,6 +4,7 @@ import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import com.gmail.filoghost.holographicdisplays.api.line.ItemLine;
 import com.gmail.filoghost.holographicdisplays.api.line.TextLine;
+import io.github.mooy1.infinitylib.common.CoolDowns;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
@@ -29,12 +30,10 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
+import org.bukkit.event.inventory.*;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -642,6 +641,16 @@ public class FusionCrafting implements Listener, CommandExecutor{
         inv.setItem(36,items[9]);
         inv.setItem(44,items[10]);
          */
+    }
+
+    public static void onInvOpen(InventoryOpenEvent e){
+        Player p = (Player) e.getPlayer();
+        InventoryView view = e.getView();
+        if (view.getTitle().contains("Slimefun Guide")){
+            if (view.getItem(10).isSimilar(SlimefunItem.getById("FUSION_CORE").getItem())){
+                viewRecipe(p,view.getItem(16));
+            }
+        }
     }
 
     @Override

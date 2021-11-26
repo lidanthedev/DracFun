@@ -2,12 +2,15 @@ package me.lidan.draconic.Other;
 
 import io.github.thebusybiscuit.slimefun4.api.events.PlayerRightClickEvent;
 import io.github.thebusybiscuit.slimefun4.api.items.ItemGroup;
+import io.github.thebusybiscuit.slimefun4.api.items.ItemSetting;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
 import io.github.thebusybiscuit.slimefun4.core.handlers.BlockUseHandler;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNetComponentType;
+import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import me.lidan.draconic.Database.Database;
 import me.lidan.draconic.Draconic;
 import org.bukkit.Material;
@@ -47,17 +50,15 @@ public class ElectroBlock extends SlimefunItem implements EnergyNetComponent {
 
     private void onBlockRightClick(PlayerRightClickEvent e) {
         Player p = e.getPlayer();
-        if (!p.getName().contains("LidanTheGamer")) {
-            return;
-        }
         if (cooldowns.get(p) == null) {
-            cooldowns.put(p, System.currentTimeMillis() - 200);
+            cooldowns.put(p, System.currentTimeMillis() - 3000);
         }
         if (System.currentTimeMillis() - cooldowns.get(p) <= 200) {
             // p.sendMessage("Click cooldown " + (System.currentTimeMillis() - cooldowns.get(p)));
             return;
         }
         Block block = e.getClickedBlock().get();
+        if (!Slimefun.getProtectionManager().hasPermission(p, block, Interaction.INTERACT_BLOCK)) return;
         ItemStack tool = p.getInventory().getItemInMainHand();
         // p.sendMessage("Interact 1");
         // p.sendMessage(Draconic.blockdata.get(block.getLocation()));
