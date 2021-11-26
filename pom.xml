@@ -31,8 +31,6 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.2.4</version>
                 <configuration>
-                    <!-- This will exclude any unused classes from libraries to reduce file size, not required -->
-                    <minimizeJar>true</minimizeJar>
                     <relocations>
                         <!-- This is the relocation, make sure to replace the package name, REQUIRED -->
                         <relocation>
@@ -57,6 +55,8 @@
                         </goals>
                         <configuration>
                             <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <!-- This will exclude any unused classes from libraries to reduce file size, not required -->
+                            <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
                 </executions>

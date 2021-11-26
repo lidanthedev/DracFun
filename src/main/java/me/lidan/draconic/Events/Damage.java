@@ -6,6 +6,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -13,7 +14,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import java.time.LocalDateTime;
 
 public class Damage implements Listener {
-    @EventHandler
+    @EventHandler(priority = EventPriority.LOW, ignoreCancelled = false)
     public void OnDamage(EntityDamageEvent e){
         if (e.getEntity() instanceof Player){
             Player p = (Player)e.getEntity();
