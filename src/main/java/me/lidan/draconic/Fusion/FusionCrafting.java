@@ -8,8 +8,11 @@ import io.github.mooy1.infinitylib.common.CoolDowns;
 import io.github.mooy1.infinitylib.common.Scheduler;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItem;
 import io.github.thebusybiscuit.slimefun4.api.items.SlimefunItemStack;
+import io.github.thebusybiscuit.slimefun4.api.player.PlayerProfile;
 import io.github.thebusybiscuit.slimefun4.api.recipes.RecipeType;
 import io.github.thebusybiscuit.slimefun4.core.attributes.EnergyNetComponent;
+import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuide;
+import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNet;
 import me.lidan.draconic.Database.Database;
 import me.lidan.draconic.Draconic;
@@ -120,12 +123,12 @@ public class FusionCrafting implements Listener, CommandExecutor{
         inv.setItem(44,items[10]);
         ItemStack energyNeeded = new ItemStack(Material.DRAGON_EGG);
         ItemMeta meta = energyNeeded.getItemMeta();
-        meta.setDisplayName("&aEnergy Required: " + recipepower.get(recipe) + " &7J ⚡");
+        meta.setDisplayName("§aEnergy Required: " + recipepower.get(recipe) + " §7J ⚡");
         energyNeeded.setItemMeta(meta);
         inv.setItem(31,energyNeeded);
         ItemStack goBack = new ItemStack(Material.BARRIER);
         ItemMeta goBackMeta = energyNeeded.getItemMeta();
-        goBackMeta.setDisplayName("&cGo back");
+        goBackMeta.setDisplayName("§cGo back");
         goBack.setItemMeta(goBackMeta);
         inv.setItem(49,goBack);
         p.openInventory(inv);
@@ -332,6 +335,11 @@ public class FusionCrafting implements Listener, CommandExecutor{
         Inventory inv = e.getInventory();
         if (invname.contains("§bFusion Recipe")){
             e.setCancelled(true);
+            if (e.getRawSlot() == 49){
+                PlayerProfile profile = PlayerProfile.find(p).get();
+                SlimefunGuide.openMainMenu(profile,SlimefunGuideMode.SURVIVAL_MODE, 1);
+                // SlimefunGuide.openMainMenuAsync(p, SlimefunGuideMode.SURVIVAL_MODE, 1);
+            }
         }
         else if (invname.contains("§bFusion Crafting")){
             Location blockloc = ((Location) Draconic.allvars.get("openinv::" + p.getName())).clone();
