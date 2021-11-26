@@ -66,7 +66,7 @@ public final class Draconic extends AbstractAddon {
     public static ItemGroup DraconicGroup;
 
     public Draconic() {
-        super("LidanTheDev", "repo", "master", "no");
+        super("LidanTheDev", "DracFun", "master", "autoupdate");
     }
 
     public static Draconic getInstance() {
