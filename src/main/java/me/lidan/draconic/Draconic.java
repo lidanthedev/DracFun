@@ -52,6 +52,7 @@ import org.bukkit.util.RayTraceResult;
 
 import java.lang.reflect.InvocationTargetException;
 import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.*;
 
 public final class Draconic extends AbstractAddon {
@@ -697,6 +698,9 @@ public final class Draconic extends AbstractAddon {
                         "§a" + (BigNumber(en)) + "/" + (BigNumber(men)) + " J");
     }
 
+    public static String CommaNumberFormat(long number) {
+        return NumberFormat.getNumberInstance(Locale.US).format(number);
+    }
 
     public static String BigNumber(double number){
         if(number >= 1000000000){

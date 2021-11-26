@@ -126,7 +126,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
         inv.setItem(44,items[10]);
         ItemStack energyNeeded = new ItemStack(Material.DRAGON_EGG);
         ItemMeta meta = energyNeeded.getItemMeta();
-        meta.setDisplayName("§aEnergy Required: " + recipepower.get(recipe) + " §7J ⚡");
+        meta.setDisplayName("§aEnergy Required: " + Draconic.CommaNumberFormat(recipepower.get(recipe)) + " §7J ⚡");
         energyNeeded.setItemMeta(meta);
         inv.setItem(31,energyNeeded);
         ItemStack goBack = new ItemStack(Material.BARRIER);
