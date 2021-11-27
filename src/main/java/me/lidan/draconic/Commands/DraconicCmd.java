@@ -5,7 +5,10 @@ import me.lidan.draconic.Draconic;
 import me.lidan.draconic.Fusion.FusionCrafting;
 import me.lidan.draconic.Other.ErrorFile;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -20,6 +23,8 @@ import org.bukkit.util.RayTraceResult;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
+
+import static me.lidan.draconic.Database.Database.lastselectall;
 
 public class DraconicCmd implements CommandExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
@@ -111,14 +116,14 @@ public class DraconicCmd implements CommandExecutor {
                     @Override
                     public void run() {
                         Database.selectAll();
-                        while(Database.lastselectall == null) {
+                        while(lastselectall == null) {
                             try {
                                 Thread.sleep(100);
                             } catch (InterruptedException e) {
                                 e.printStackTrace();
                             }
                         }
-                        HashMap<Location, HashMap<String, Object>> blockdata = Database.lastselectall;
+                        HashMap<Location, HashMap<String, Object>> blockdata = lastselectall;
                         for (HashMap.Entry<Location, HashMap<String, Object>> entry : blockdata.entrySet()) {
                             System.out.printf("Blockdata for: %s",entry.getKey());
                             for (HashMap.Entry<String, Object> entry2 : entry.getValue().entrySet()) {
@@ -166,7 +171,11 @@ public class DraconicCmd implements CommandExecutor {
                 Entity e = ray.getHitEntity();
                 Draconic.packetHideEntity(e, p);
             }
-
+            else if(args[0].equalsIgnoreCase("showblocks")){
+                for (Location loc : lastselectall.keySet()) {
+                    p.sendBlockChange(loc, Material.ORANGE_TERRACOTTA.createBlockData());
+                }
+            }
         }
 
         return true;
