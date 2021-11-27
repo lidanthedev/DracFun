@@ -714,7 +714,7 @@ public final class Draconic extends AbstractAddon {
                     recipe,500000);
             slimeitem.register(this);
         }
-        if(SlimefunItem.getById("CHAOTIC_INJECTOR") == null){
+        /*if(SlimefunItem.getById("CHAOTIC_INJECTOR") == null){
             SlimefunItemStack itemStack = new SlimefunItemStack("CHAOTIC_INJECTOR", Material.END_PORTAL_FRAME,
                     "&8Chaotic Fusion Injector",
                     "&9Fusion Crafting Injector");
@@ -726,7 +726,7 @@ public final class Draconic extends AbstractAddon {
             ElectroBlock slimeitem = new ElectroBlock(DraconicGroup, itemStack,FusionCrafting.TYPE,
                     recipe,1000000);
             slimeitem.register(this);
-        }
+        }*/
         if(SlimefunItem.getById("DRACONIC_ENERGY_INFUSER") == null) {
             SlimefunItemStack DRACONIC_ENERGY_INFUSER = new SlimefunItemStack(
                     "DRACONIC_ENERGY_INFUSER",
@@ -736,14 +736,14 @@ public final class Draconic extends AbstractAddon {
                     "&8⇨ &e⚡ &750,000 J Per Second",
                     "&8⇨ &e⚡ &7Energy Loss: &c50%"
             );
-            new ChargingBench(DraconicGroup,DRACONIC_ENERGY_INFUSER , RecipeType.NULL, new ItemStack[] {
-                    AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT,
-                    AWAKENED_DRACONIUM_INGOT, SlimefunItems.CHARGING_BENCH, AWAKENED_DRACONIUM_INGOT,
-                    AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT, AWAKENED_DRACONIUM_INGOT,
+            new ChargingBench(DraconicGroup,DRACONIC_ENERGY_INFUSER , RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+                    AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
+                    AWAKENED_DRACONIUM_INGOT, SlimefunItems.CHARGING_BENCH, AWAKENED_DRACONIUM_BLOCK,
+                    AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
             }).setCapacity(10000).setEnergyConsumption(10000).setProcessingSpeed(30).register(this);
         }
 
-        if(SlimefunItem.getById("DRACONIC_OP_ENERGY") == null) {
+        /*if(SlimefunItem.getById("DRACONIC_OP_ENERGY") == null) {
             SlimefunItemStack DRACONIC_OP_ENERGY = new SlimefunItemStack(
                     "DRACONIC_OP_ENERGY",
                     Material.END_ROD,
@@ -757,7 +757,7 @@ public final class Draconic extends AbstractAddon {
                             AWAKENED_DRACONIUM_BLOCK, SlimefunItems.SOLAR_GENERATOR_4, endcrystal,
                             AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
                     }).register(this);
-        }
+        }*/
     }
 
     public static float getArmorEnergy(ItemStack item){
