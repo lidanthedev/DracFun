@@ -113,7 +113,6 @@ public final class Draconic extends AbstractAddon {
         getServer().getPluginManager().registerEvents(new Death(),this);
         getServer().getPluginManager().registerEvents(new FusionCrafting(),this);
         everytick.runTaskTimer(this,0L,5L);
-        every5secs.runTaskAsynchronously(this);
         getCommand("aiflyto").setExecutor(new aiflycmd());
         getCommand("draconic").setExecutor(new DraconicCmd());
         //arry = {core,fused,injector,+8 items} 11 size 10 length
@@ -247,6 +246,7 @@ public final class Draconic extends AbstractAddon {
                 Database.selectAllAndDelete();
             }
         });
+        every5secs.runTaskLaterAsynchronously(this,100);
         /*
         if (Slimefun.instance() != null)
             setup();
