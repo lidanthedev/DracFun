@@ -7,7 +7,10 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import de.slikey.effectlib.EffectManager;
+import de.slikey.effectlib.EffectType;
 import de.slikey.effectlib.effect.CircleEffect;
+import de.slikey.effectlib.effect.SphereEffect;
+import de.slikey.effectlib.util.DynamicLocation;
 import io.github.mooy1.infinitylib.commands.AddonCommand;
 import io.github.mooy1.infinitylib.common.CoolDowns;
 import io.github.mooy1.infinitylib.common.Scheduler;
@@ -1018,11 +1021,15 @@ public final class Draconic extends AbstractAddon {
         }
     }
 
-    public static void createCircle(Location loc,float radius,Particle particle,int iter){
-        CircleEffect circle = new CircleEffect(Draconic.effectManager);
+    public static void createCircle(Location loc,float radius,Particle particle,int iter, float data){
+        SphereEffect circle = new SphereEffect(Draconic.effectManager);
         circle.radius = radius;
         circle.particle = particle;
         circle.iterations = iter;
+        circle.type = EffectType.REPEATING;
+        // circle.setDynamicOrigin(new DynamicLocation(loc));
+        circle.particleData = data;
+        circle.setLocation(loc);
         circle.start();
     }
 
