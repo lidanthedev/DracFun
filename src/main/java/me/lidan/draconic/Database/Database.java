@@ -117,21 +117,23 @@ public class Database {
         return result;
     }
 
-    public static void delete(Location loc){
+    public static boolean delete(Location loc){
         //language=SQL
         String sql =
                 "DELETE FROM BlockData WHERE world = '" + loc.getWorld().getName() + "' AND x " +
                         "= " + loc.getX() + " AND y = " + loc.getY() + " AND z = " + loc.getZ();
         try (Connection conn = getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
+            PreparedStatement pstmt = conn.prepareStatement(sql)) {
             // execute the delete statement
             pstmt.executeUpdate();
+            System.out.println("Deleted " + loc);
+            return true;
 
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public static void selectAll(){
@@ -201,7 +203,9 @@ public class Database {
                     Thread.sleep(1000);
                     for (Location locdel: deleteafter) {
                         System.out.println("[Draconic] Deleted " + locdel.toString());
-                        delete(locdel);
+                        if (!delete(locdel)){
+                            System.out.println("[Draconic] Failed to Delete " + locdel.toString());
+                        }
                         Thread.sleep(100);
                     }
                     selectAll();

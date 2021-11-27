@@ -185,7 +185,14 @@ public class DraconicCmd implements CommandExecutor {
                     p.sendBlockChange(loc, Material.ORANGE_TERRACOTTA.createBlockData());
                     Hologram holo = HologramsAPI.createHologram(Draconic.getInstance(),loc);
                     holos.add(holo);
-                    holo.appendTextLine(lastselectall.get(loc).toString());
+                    HashMap<String, Object> text = lastselectall.get(loc);
+                    if (text == null) {
+                        holo.appendTextLine("null");
+                    }
+                    else {
+                        holo.appendTextLine(text.toString());
+                    }
+
                 }
             }
         }

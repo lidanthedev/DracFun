@@ -838,6 +838,30 @@ public final class Draconic extends AbstractAddon {
         return energy;
     }
 
+    public static double getRegenShield(ItemStack item){
+        double regen = 0;
+        SlimefunItem slimefunItem = SlimefunItem.getByItem(item);
+        if (slimefunItem instanceof DraconicArmorPiece) {
+            DraconicArmorPiece dracpiece = (DraconicArmorPiece) slimefunItem;
+            if (dracpiece.getItemName().contains("Draconic")){
+                regen += 10;
+            }
+            if (dracpiece.getItemName().contains("Wyvern")){
+                regen += 5;
+            }
+        }
+        return regen;
+    }
+
+    public static double getRegenShieldForPlayer(Player p){
+        double regen = 0;
+        regen += getRegenShield(p.getInventory().getHelmet());
+        regen += getRegenShield(p.getInventory().getChestplate());
+        regen += getRegenShield(p.getInventory().getLeggings());
+        regen += getRegenShield(p.getInventory().getBoots());
+        return regen;
+    }
+
     public static void actionbar(Player p,String msg){
         p.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacyText(msg));
     }
