@@ -27,6 +27,9 @@ public class Damage implements Listener {
                 EntityDamageByEntityEvent eb = (EntityDamageByEntityEvent) e;
                 if (eb.getDamager().getType() == EntityType.PLAYER)
                     multi = 5;
+                if(eb.getDamager() == e.getEntity()){
+                    multi = 1;
+                }
             }
             Player p = (Player)e.getEntity();
             Double damage = e.getFinalDamage();
