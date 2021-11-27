@@ -1,5 +1,7 @@
 package me.lidan.draconic.Commands;
 
+import com.gmail.filoghost.holographicdisplays.api.Hologram;
+import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
 import me.lidan.draconic.Database.Database;
 import me.lidan.draconic.Draconic;
 import me.lidan.draconic.Fusion.FusionCrafting;
@@ -20,6 +22,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.RayTraceResult;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
@@ -174,6 +177,15 @@ public class DraconicCmd implements CommandExecutor {
             else if(args[0].equalsIgnoreCase("showblocks")){
                 for (Location loc : lastselectall.keySet()) {
                     p.sendBlockChange(loc, Material.ORANGE_TERRACOTTA.createBlockData());
+                }
+            }
+            else if(args[0].equalsIgnoreCase("showblockswithholo")){
+                ArrayList<Hologram> holos = new ArrayList<>();
+                for (Location loc : lastselectall.keySet()) {
+                    p.sendBlockChange(loc, Material.ORANGE_TERRACOTTA.createBlockData());
+                    Hologram holo = HologramsAPI.createHologram(Draconic.getInstance(),loc);
+                    holos.add(holo);
+                    holo.appendTextLine(String.valueOf(lastselectall.get(loc)));
                 }
             }
         }

@@ -169,7 +169,7 @@ public class Database {
 
     public static void selectAllAndDelete(){
         //language=SQL
-        String sql = "SELECT world, x, y,z,item FROM BlockData";
+        String sql = "SELECT world, x, y,z,item, btype FROM BlockData";
         new BukkitRunnable(){
 
             @Override
@@ -202,6 +202,7 @@ public class Database {
                     for (Location locdel: deleteafter) {
                         System.out.println("[Draconic] Deleted " + locdel.toString());
                         delete(locdel);
+                        Thread.sleep(100);
                     }
                     selectAll();
                 } catch (SQLException | InterruptedException e) {
