@@ -1021,14 +1021,14 @@ public final class Draconic extends AbstractAddon {
         }
     }
 
-    public static void createCircle(Location loc,float radius,Particle particle,int iter, float data){
+    public static void createCircle(Location loc,float radius,Particle particle,int iter, Color color){
         SphereEffect circle = new SphereEffect(Draconic.effectManager);
         circle.radius = radius;
         circle.particle = particle;
         circle.iterations = iter;
         circle.type = EffectType.REPEATING;
         // circle.setDynamicOrigin(new DynamicLocation(loc));
-        circle.particleData = data;
+        circle.color = color;
         circle.setLocation(loc);
         circle.start();
     }

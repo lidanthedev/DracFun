@@ -43,8 +43,7 @@ public class Tick extends BukkitRunnable {
                 vars.put("energy::" + p.getName(), (double) Draconic.getArmorEnergyForPlayer(p));
                 vars.put("maxenergy::" + p.getName(),(double) Draconic.getMaxArmorEnergyForPlayer(p));
                 vars.put("maxshield::" + p.getName(), Draconic.getMaxShieldForPlayer(p));
-                vars.put("up_sr::" + p.getName(),Draconic.getRegenShieldForPlayer(p));
-                //TODO: if you have draconic buff shield regen
+                vars.put("up_sr::" + p.getName(),Draconic.getRegenShieldForPlayer(p) / 4);
                 if (shield > mshield){
                     vars.put("shield::" + p.getName(),mshield);
                 }

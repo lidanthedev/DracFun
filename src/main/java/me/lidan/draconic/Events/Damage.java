@@ -32,15 +32,26 @@ public class Damage implements Listener {
             Double damage = e.getFinalDamage();
             Double shield = (Double)Draconic.vars.get("shield::" + p.getName());
             Double mshield = (Double)Draconic.vars.get("maxshield::" + p.getName());
+            Double percentshield = shield/mshield*100;
             Double ov = (Double)Draconic.vars.get("overload::" + p.getName());
             Double en = (Double)Draconic.vars.get("energy::" + p.getName());
             if (shield + 0 > 0 && !e.isCancelled()) {
                 if(ov >= 1d){
                     e.setDamage(damage * (1d + ov/100));
                 }
-                Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(255, 0, 0), 1.0F);
-                float particledata = ((float) dustOptions.getColor().asRGB());
-                Draconic.createCircle(p.getLocation(),2.5f, Particle.REDSTONE,1,particledata);
+                Color particledata = Color.fromRGB(0);
+                if (percentshield >= 50){
+                    particledata = Color.fromRGB(0, 0, 255);
+                }
+                else if (percentshield >= 25){
+                    particledata = Color.fromRGB(250, 150, 0);
+                }
+                else {
+                    particledata = Color.fromRGB(250, 0, 0);
+                }
+                // Particle.DustOptions dustOptions = new Particle.DustOptions(Color.fromRGB(255, 0, 0), 1.0F);
+                //  = ((float) dustOptions.getColor().asRGB());
+                Draconic.createCircle(p.getLocation().clone().add(0,1,0),1.5f, Particle.REDSTONE,2,particledata);
                 shield = shield - e.getDamage()*multi;
                 if (shield < 0){
                     shield = 0d;
