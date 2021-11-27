@@ -1,8 +1,11 @@
 package me.lidan.draconic.Events;
 
+import de.slikey.effectlib.EffectLib;
+import de.slikey.effectlib.effect.CircleEffect;
 import me.lidan.draconic.Draconic;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
+import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -34,6 +37,7 @@ public class Damage implements Listener {
                 if(ov >= 1d){
                     e.setDamage(damage * (1d + ov/100));
                 }
+                Draconic.createCircle(p.getLocation(),2.5f, Particle.BARRIER,100);
                 shield = shield - e.getDamage()*multi;
                 if (shield < 0){
                     shield = 0d;

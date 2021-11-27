@@ -6,6 +6,8 @@ import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import com.gmail.filoghost.holographicdisplays.api.Hologram;
 import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import de.slikey.effectlib.EffectManager;
+import de.slikey.effectlib.effect.CircleEffect;
 import io.github.mooy1.infinitylib.commands.AddonCommand;
 import io.github.mooy1.infinitylib.common.CoolDowns;
 import io.github.mooy1.infinitylib.common.Scheduler;
@@ -68,6 +70,7 @@ public final class Draconic extends AbstractAddon {
     // public static BossBar bar = Bukkit.createBossBar("Test", BarColor.BLUE, BarStyle.SOLID);
     public static ItemGroup DraconicGroup;
     public static AddonConfig cfg = null;
+    public static EffectManager effectManager;
 
     public Draconic() {
         super("LidanTheDev", "DracFun", "master", "autoupdate");
@@ -247,6 +250,7 @@ public final class Draconic extends AbstractAddon {
             }
         });
         every5secs.runTaskLaterAsynchronously(this,100);
+        effectManager = new EffectManager(this);
         /*
         if (Slimefun.instance() != null)
             setup();
@@ -1012,6 +1016,14 @@ public final class Draconic extends AbstractAddon {
                 invocationTargetException.printStackTrace();
             }
         }
+    }
+
+    public static void createCircle(Location loc,float radius,Particle particle,int iter){
+        CircleEffect circle = new CircleEffect(Draconic.effectManager);
+        circle.radius = radius;
+        circle.particle = particle;
+        circle.iterations = iter;
+        circle.start();
     }
 
     @Override
