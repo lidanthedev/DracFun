@@ -738,7 +738,7 @@ public final class Draconic extends AbstractAddon {
             );
             new ChargingBench(DraconicGroup,DRACONIC_ENERGY_INFUSER , RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
                     AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
-                    AWAKENED_DRACONIUM_INGOT, SlimefunItems.CHARGING_BENCH, AWAKENED_DRACONIUM_BLOCK,
+                    AWAKENED_DRACONIUM_BLOCK, SlimefunItems.CHARGING_BENCH, AWAKENED_DRACONIUM_BLOCK,
                     AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK, AWAKENED_DRACONIUM_BLOCK,
             }).setCapacity(10000).setEnergyConsumption(10000).setProcessingSpeed(30).register(this);
         }
