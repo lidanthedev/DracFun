@@ -154,11 +154,21 @@ public class FusionCrafting implements Listener, CommandExecutor{
     public static ItemStack getItemInjectortier(int tier){
         ItemStack injector = new ItemStack(Material.END_PORTAL_FRAME);
         ItemMeta meta = injector.getItemMeta();
-        if(tier == 1) meta.setDisplayName("§fBasic Fusion Injector");
-        if(tier == 2) meta.setDisplayName("§dWyvern Fusion Injector");
-        if(tier == 3) meta.setDisplayName("§6Draconic Fusion Injector");
-        if(tier == 4) meta.setDisplayName("§8Chaotic Fusion Injector");
-        injector.setItemMeta(meta);
+        SlimefunItem item = SlimefunItem.getById("CHAOTIC_INJECTOR");
+        if (item == null)
+        {
+            if(tier == 1) meta.setDisplayName("§fBasic Fusion Injector");
+            if(tier == 2) meta.setDisplayName("§dWyvern Fusion Injector");
+            if(tier == 3) meta.setDisplayName("§6Draconic Fusion Injector");
+            if(tier == 4) meta.setDisplayName("§8Chaotic Fusion Injector");
+            injector.setItemMeta(meta);
+        }
+        else{
+            if(tier == 1) injector = SlimefunItem.getById("BASIC_INJECTOR").getItem();
+            if(tier == 2) injector = SlimefunItem.getById("WYVERN_INJECTOR").getItem();
+            if(tier == 3) injector = SlimefunItem.getById("DRACONIC_INJECTOR").getItem();
+            if(tier == 4) injector = SlimefunItem.getById("DRACONIC_INJECTOR").getItem();
+        }
         return injector;
     }
 
