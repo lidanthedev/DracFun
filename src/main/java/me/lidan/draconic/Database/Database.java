@@ -129,6 +129,7 @@ public class Database {
             pstmt.executeUpdate();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println(e.getMessage());
         }
     }
@@ -181,26 +182,28 @@ public class Database {
                     // loop through the result set
                     while (rs.next()) {
                         String world = rs.getString("world");
+                        String type = rs.getString("btype");
                         int x = (int) rs.getDouble("x");
                         int y = (int) rs.getDouble("y");
                         int z = (int) rs.getDouble("z");
                         Location locat = new Location(Bukkit.getWorld(world),x, y, z);
                         Block blockat = Bukkit.getWorld(world).getBlockAt(locat);
-                        if(blockat.getType() == Material.AIR){
+                        if(blockat.getType() == Material.AIR || type == null){
                             System.out.println("[Draconic] block at " + locat.toString() + " was air and got deleted");
                             deleteafter.add(locat);
                             // delete(locat);
                         }
-                        System.out.println(rs.getString("world") +  " " +
-                                rs.getDouble("x") + " " +
-                                rs.getDouble("y") + " " +
-                                rs.getDouble("z"));
+//                        System.out.println(rs.getString("world") +  " " +
+//                                rs.getDouble("x") + " " +
+//                                rs.getDouble("y") + " " +
+//                                rs.getDouble("z"));
                     }
                     Thread.sleep(1000);
                     for (Location locdel: deleteafter) {
                         System.out.println("[Draconic] Deleted " + locdel.toString());
                         delete(locdel);
                     }
+                    selectAll();
                 } catch (SQLException | InterruptedException e) {
                     System.out.println(e.getMessage());
                 }

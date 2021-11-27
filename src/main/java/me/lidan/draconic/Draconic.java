@@ -241,7 +241,12 @@ public final class Draconic extends AbstractAddon {
         // ErrorFile.get().set("Bigerror","YES");
         ErrorFile.get().options().copyDefaults(true);
         ErrorFile.save();
-
+        Scheduler.runAsync(new Runnable() {
+            @Override
+            public void run() {
+                Database.selectAllAndDelete();
+            }
+        });
         /*
         if (Slimefun.instance() != null)
             setup();
@@ -860,7 +865,8 @@ public final class Draconic extends AbstractAddon {
                 "§b" + numberFormat.format(shield) + "/" + numberFormat.format(mshield) + " §c" + numberFormat.format(ov) + "%" + " " +
                         "§a" + (BigNumber(en)) + "/" + (BigNumber(men)) + " J");
         double progress = shield/mshield;
-        bars.get(p).setProgress(progress);
+        if (progress >= 0)
+            bars.get(p).setProgress(progress);
     }
 
     public static String CommaNumberFormat(long number) {
