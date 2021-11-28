@@ -7,7 +7,7 @@ I'll be running this addon on my server sbdragons.ml in the survival gamemode if
 * Alot of new Materials
 * Armor that creates energy shield
 * Fusion Crafting
-* Recipes
+* New Recipes
 
 ## Requirements
 [Slimefun 4](https://github.com/TheBusyBiscuit/Slimefun4)
