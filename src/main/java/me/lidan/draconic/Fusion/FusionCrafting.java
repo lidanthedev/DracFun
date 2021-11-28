@@ -407,14 +407,6 @@ public class FusionCrafting implements Listener, CommandExecutor{
         Location hololoc = oblockloc.clone();
         blockloc.add(0.5,1,0.5);
         hololoc.add(0.5,2,0.5);
-        for (Player loop_player: Bukkit.getOnlinePlayers()) {
-            if (Draconic.allvars.get("openinv::" + loop_player.getName()) != null){
-                Location value = (Location) Draconic.allvars.get("openinv::" + loop_player.getName());
-                if (value == oblockloc) {
-                    loop_player.closeInventory();
-                }
-            }
-        }
         lockConnectedInjectors(oblockloc);
         lockedBlocks.put(oblockloc,-1d);
         HashMap<String,Object> blockdata = Database.select(oblockloc);
@@ -506,6 +498,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
     public static void lockConnectedInjectors(Location location) {
         for (HashMap.Entry<Location, Location> entry : connectedInjectors.entrySet()){
             if (entry.getValue().equals(location)){
+                Bukkit.getPlayer("LidanTheGamer_").sendMessage("Lock injector at " + entry.getKey());
                 lockedBlocks.put(entry.getKey(),-1d);
             }
         }

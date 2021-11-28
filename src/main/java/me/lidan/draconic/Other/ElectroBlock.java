@@ -13,6 +13,8 @@ import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
 import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import me.lidan.draconic.Database.Database;
 import me.lidan.draconic.Draconic;
+import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -71,6 +73,7 @@ public class ElectroBlock extends SlimefunItem implements EnergyNetComponent {
             p.sendMessage("§cThis block is locked.");
             return;
         }
+        p.sendMessage("[DEBUG] " + lockedBlocks.get(block.getLocation()));
         if (blockdata.get("type").toString().contains("Core")) {
             if (System.currentTimeMillis() - cooldowns.get(p) <= 2000) return;
             //TODO: fix stupid error with locking core [for now disabled]
@@ -85,6 +88,15 @@ public class ElectroBlock extends SlimefunItem implements EnergyNetComponent {
                 return;
             }
             Draconic.allvars.put("openinv::" + p.getName(), block.getLocation().clone());
+            Location oblockloc = block.getLocation().clone();
+            for (Player loop_player: Bukkit.getOnlinePlayers()) {
+                if (Draconic.allvars.get("openinv::" + loop_player.getName()) != null){
+                    Location value = (Location) Draconic.allvars.get("openinv::" + loop_player.getName());
+                    if (value.equals(oblockloc)) {
+                        loop_player.closeInventory();
+                    }
+                }
+            }
             openInventory1(p, block.getLocation());
             // p.sendMessage("Interact 3");
         } else if (blockdata.get("type").toString().contains("Injector")) {
