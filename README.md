@@ -11,6 +11,8 @@ I'll be running this addon on my server sbdragons.ml in the survival gamemode if
 
 ## Requirements
 [Slimefun 4](https://github.com/TheBusyBiscuit/Slimefun4)
+[Holographic Displays](https://dev.bukkit.org/projects/holographic-displays)
+[ProtocolLib](https://www.spigotmc.org/resources/protocollib.1997/)
 
 ## Download
 You can find the downloads for each version with their release notes in the [releases page](https://github.com/lidanthedev/DracFun/releases).
