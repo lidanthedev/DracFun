@@ -22,9 +22,7 @@ import me.lidan.draconic.Draconic;
 import me.lidan.draconic.Other.EnergyBreaker;
 import me.lidan.draconic.Other.aiflyholo;
 import me.lidan.draconic.Other.aiflyrun;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -398,6 +396,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
                         if (fusionWorks == false){
                             lockedBlocks.put(blockloc,0d);
                             unlockConnectedInjectors(blockloc);
+                            p.sendMessage("§cThis Recipe Doesn't Exists. do /sf guide to check all recipes!");
                         }
                     }
                 } else {
@@ -451,6 +450,10 @@ public class FusionCrafting implements Listener, CommandExecutor{
                     String percentloadeds = String.format("%.2f",percentloaded);
                     line1.setText("&6Charging " + percentloadeds + "%");
                     line2.setText("&a" + Draconic.BigNumber(energyGot) +"/" + Draconic.BigNumber(totalEnergy) + " &7J &e⚡");
+                    if (percentloaded % 5 == 0){
+                        oblockloc.getWorld().playSound(oblockloc, Sound.ITEM_FLINTANDSTEEL_USE,0.7f,1.3f);
+                        oblockloc.getWorld().spawnParticle(Particle.CRIT_MAGIC,blockloc,5);
+                    }
                     // p.sendMessage("Energy: " + energyGot + "/" + totalEnergy);
                     lockedBlocks.put(oblockloc,percentloaded);
                     if (energyGot >= totalEnergy) {
@@ -482,6 +485,9 @@ public class FusionCrafting implements Listener, CommandExecutor{
                                         Database.setblock(entry.getKey(), blockdata);
                                     }
                                 }
+                                oblockloc.getWorld().playSound(blockloc, Sound.ENTITY_GENERIC_EXPLODE,1,1);
+                                oblockloc.getWorld().spawnParticle(Particle.CRIT_MAGIC,blockloc,100);
+
                                 lockedBlocks.put(oblockloc,0d);
                                 // Bukkit.getPlayer("LidanTheGamer_").sendMessage("Finish Fusion");
                                 unlockConnectedInjectors(oblockloc);
