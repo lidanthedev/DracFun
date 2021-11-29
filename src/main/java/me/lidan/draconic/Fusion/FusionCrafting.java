@@ -17,6 +17,7 @@ import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideImplementation
 import io.github.thebusybiscuit.slimefun4.core.guide.SlimefunGuideMode;
 import io.github.thebusybiscuit.slimefun4.core.networks.energy.EnergyNet;
 import io.github.thebusybiscuit.slimefun4.implementation.Slimefun;
+import io.github.thebusybiscuit.slimefun4.libraries.dough.protection.Interaction;
 import me.lidan.draconic.Database.Database;
 import me.lidan.draconic.Draconic;
 import me.lidan.draconic.Other.EnergyBreaker;
@@ -314,11 +315,19 @@ public class FusionCrafting implements Listener, CommandExecutor{
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void breakBlock(BlockBreakEvent e) {
+        Player p = (Player) e.getPlayer();
         Location blockloc = e.getBlock().getLocation();
         HashMap<String,Object> blockdata = Database.select(blockloc);
         if (blockdata.size() == 0) {return;}
+        if (!Slimefun.getProtectionManager().hasPermission(p, blockloc, Interaction.BREAK_BLOCK)) return;
         if (!e.isCancelled()) {
-            Player p = (Player) e.getPlayer();
+            ItemStack item = (ItemStack) blockdata.get("item");
+            if (lockedBlocks.get(blockloc) != 0d){
+                p.sendMessage("§cYou cannot break a locked block");
+                e.setCancelled(true);
+                return;
+            }
+            Draconic.giveItem(p,item);
             Database.delete(blockloc);
             for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
                 double distance = holo.getLocation().distance(e.getBlock().getLocation());
