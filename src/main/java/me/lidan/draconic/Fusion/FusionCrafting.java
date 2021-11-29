@@ -154,7 +154,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
     public static ItemStack getItemInjectortier(int tier){
         ItemStack injector = new ItemStack(Material.END_PORTAL_FRAME);
         ItemMeta meta = injector.getItemMeta();
-        SlimefunItem item = SlimefunItem.getById("CHAOTIC_INJECTOR");
+        SlimefunItem item = SlimefunItem.getById("DRACONIC_INJECTOR");
         if (item == null)
         {
             if(tier == 1) meta.setDisplayName("§fBasic Fusion Injector");
@@ -387,10 +387,18 @@ public class FusionCrafting implements Listener, CommandExecutor{
                         items[9] = invitems[36];
                         items[10] = invitems[44];
                         p.closeInventory();
+                        boolean fusionWorks = false;
                         for (String recipe: recipes.keySet()) {
-                            FuseRecipe(p, blockloc, items, recipe);
+                            if (FuseRecipe(p, blockloc, items, recipe)){
+                                fusionWorks = true;
+                            }
+
                         }
                         // arry = {core,fused,injector,+8 items} 11 size 10 length
+                        if (fusionWorks == false){
+                            lockedBlocks.put(blockloc,0d);
+                            unlockConnectedInjectors(blockloc);
+                        }
                     }
                 } else {
 
@@ -475,6 +483,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
                                     }
                                 }
                                 lockedBlocks.put(oblockloc,0d);
+                                // Bukkit.getPlayer("LidanTheGamer_").sendMessage("Finish Fusion");
                                 unlockConnectedInjectors(oblockloc);
                                 blockdata.put("item", getRecipe(recipename)[1]);
                                 Database.setblock(oblockloc, blockdata);
@@ -489,8 +498,6 @@ public class FusionCrafting implements Listener, CommandExecutor{
         }
         else{
             // p.sendMessage("Recipe not work!");
-            lockedBlocks.put(oblockloc,0d);
-            unlockConnectedInjectors(oblockloc);
             return false;
         }
     }
@@ -498,7 +505,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
     public static void lockConnectedInjectors(Location location) {
         for (HashMap.Entry<Location, Location> entry : connectedInjectors.entrySet()){
             if (entry.getValue().equals(location)){
-                Bukkit.getPlayer("LidanTheGamer_").sendMessage("Lock injector at " + entry.getKey());
+                // Bukkit.getPlayer("LidanTheGamer_").sendMessage("Lock injector at " + entry.getKey());
                 lockedBlocks.put(entry.getKey(),-1d);
             }
         }
@@ -507,6 +514,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
     public static void unlockConnectedInjectors(Location location) {
         for (HashMap.Entry<Location, Location> entry : connectedInjectors.entrySet()){
             if (entry.getValue().equals(location)){
+                // Bukkit.getPlayer("LidanTheGamer_").sendMessage("Unlock injector at " + entry.getKey());
                 lockedBlocks.put(entry.getKey(),0d);
             }
         }

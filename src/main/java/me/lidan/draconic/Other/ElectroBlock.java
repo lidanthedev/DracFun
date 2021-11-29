@@ -73,7 +73,7 @@ public class ElectroBlock extends SlimefunItem implements EnergyNetComponent {
             p.sendMessage("§cThis block is locked.");
             return;
         }
-        p.sendMessage("[DEBUG] " + lockedBlocks.get(block.getLocation()));
+        // p.sendMessage("[DEBUG] " + lockedBlocks.get(block.getLocation()));
         if (blockdata.get("type").toString().contains("Core")) {
             if (System.currentTimeMillis() - cooldowns.get(p) <= 2000) return;
             //TODO: fix stupid error with locking core [for now disabled]
