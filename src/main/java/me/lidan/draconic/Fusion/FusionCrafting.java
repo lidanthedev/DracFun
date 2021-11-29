@@ -313,7 +313,7 @@ public class FusionCrafting implements Listener, CommandExecutor{
         }.runTaskAsynchronously(Draconic.getInstance());
     }
 
-    @EventHandler(priority = EventPriority.HIGHEST)
+    @EventHandler(priority = EventPriority.LOW)
     public void breakBlock(BlockBreakEvent e) {
         Player p = (Player) e.getPlayer();
         Location blockloc = e.getBlock().getLocation();
@@ -322,6 +322,9 @@ public class FusionCrafting implements Listener, CommandExecutor{
         if (!Slimefun.getProtectionManager().hasPermission(p, blockloc, Interaction.BREAK_BLOCK)) return;
         if (!e.isCancelled()) {
             ItemStack item = (ItemStack) blockdata.get("item");
+            if (item == null) {
+                item = new ItemStack(Material.AIR);
+            }
             if (lockedBlocks.get(blockloc) != 0d){
                 p.sendMessage("§cYou cannot break a locked block");
                 e.setCancelled(true);
@@ -436,11 +439,13 @@ public class FusionCrafting implements Listener, CommandExecutor{
             line2.setText("&a0/1M &7J &e⚡");
             new BukkitRunnable(){
                 int energyGot = 0;
+                int particle = 0;
                 @Override
                 public void run() {
                     int totalEnergy = recipepower.get(recipename);
                     int energyPerTick = totalEnergy / 100 / 8;
                     double percentloaded = 0d;
+                    particle++;
 
                     for (HashMap.Entry<Location, Location> entry : connectedInjectors.entrySet()) {
                         if (entry.getValue().equals(oblockloc)) {
@@ -459,12 +464,14 @@ public class FusionCrafting implements Listener, CommandExecutor{
                     String percentloadeds = String.format("%.2f",percentloaded);
                     line1.setText("&6Charging " + percentloadeds + "%");
                     line2.setText("&a" + Draconic.BigNumber(energyGot) +"/" + Draconic.BigNumber(totalEnergy) + " &7J &e⚡");
-                    if (percentloaded % 5 == 0){
+                    if (particle % 2 == 0){
                         oblockloc.getWorld().playSound(oblockloc, Sound.ITEM_FLINTANDSTEEL_USE,0.7f,1.3f);
                         oblockloc.getWorld().spawnParticle(Particle.CRIT_MAGIC,blockloc,5);
                     }
                     // p.sendMessage("Energy: " + energyGot + "/" + totalEnergy);
-                    lockedBlocks.put(oblockloc,percentloaded);
+                    if (percentloaded != 0){
+                        lockedBlocks.put(oblockloc,percentloaded);
+                    }
                     if (energyGot >= totalEnergy) {
                         craftingHologram.delete();
                         for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
@@ -475,6 +482,18 @@ public class FusionCrafting implements Listener, CommandExecutor{
                             }
                         }
                         new BukkitRunnable() {
+                            int particle = 0;
+                            @Override
+                            public void run() {
+                                if (particle > 100){
+                                    cancel();
+                                }
+                                particle++;
+                                oblockloc.getWorld().playSound(oblockloc, Sound.ITEM_FLINTANDSTEEL_USE,0.7f,1.3f);
+                                oblockloc.getWorld().spawnParticle(Particle.CRIT_MAGIC,blockloc,5);
+                            }
+                        }.runTaskTimer(Draconic.getInstance(),0,1);
+                        new BukkitRunnable() {
                             @Override
                             public void run() {
                                 for (Hologram holo : HologramsAPI.getHolograms(Draconic.getInstance())) {
@@ -484,9 +503,9 @@ public class FusionCrafting implements Listener, CommandExecutor{
                                     }
                                 }
                                 for (HashMap.Entry<Location, Location> entry : connectedInjectors.entrySet()) {
-                                    System.out.println("Injectors " + entry.getValue() + " Core " + oblockloc);
+                                    // System.out.println("Injectors " + entry.getValue() + " Core " + oblockloc);
                                     if (entry.getValue().equals(oblockloc)) {
-                                        System.out.println("scam " + entry.getKey());
+                                        // System.out.println("scam " + entry.getKey());
                                         HashMap<String, Object> blockdata = Database.select(entry.getKey());
                                         ItemStack itemscam = (ItemStack) blockdata.get("item");
                                         itemscam.setAmount(itemscam.getAmount() - 1);
@@ -557,12 +576,12 @@ public class FusionCrafting implements Listener, CommandExecutor{
     }
 
     public static ItemStack[] getCloseInjectors(Location center,int size){
-        System.out.println("GetCloseInjectors " + center + " size " + size);
+        // System.out.println("GetCloseInjectors " + center + " size " + size);
         ArrayList<Block> injectors = new ArrayList<>();
         for (HashMap.Entry<Location, Location> entry : connectedInjectors.entrySet()){
             if (injectors.size() == 8) break;
             if (entry.getValue().equals(center)) {
-                System.out.println("connectedinjector found");
+              // ("connectedinjector found");
                 injectors.add(center.getWorld().getBlockAt(entry.getKey()));
             }
             HashMap<String,Object> blockdata = Database.select(entry.getKey());
@@ -576,15 +595,25 @@ public class FusionCrafting implements Listener, CommandExecutor{
         ItemStack[] items = {air,air,air,air,air,air,air,air,getItemInjectortier(4)};
         ArrayList<Block> blocks = new ArrayList<>();
         if (injectors.size() >= 8){
+            // Bukkit.getPlayer("LidanTheGamer_").sendMessage("close injectors!");
             blocks = injectors;
         }
         else{
+            // Bukkit.getPlayer("LidanTheGamer_").sendMessage("non close injectors! " + center + " " + size);
             blocks = Draconic.loopblockscube(center,size);
+            // Bukkit.getPlayer("LidanTheGamer_").sendMessage("non close injectors! 2 " + blocks);
         }
         for (Block block: blocks) {
+            // Bukkit.getPlayer("LidanTheGamer_").sendMessage("block found " + block.getLocation());
             HashMap<String,Object> blockdata = Database.select(block.getLocation());
             if (itemIndex >= 8) break;
-            if(blockdata.size() > 0 && ((String) blockdata.get("type")).contains("Injector") && (connectedInjectors.get(block.getLocation()) == null || connectedInjectors.get(block.getLocation()).equals(center))){
+            // Bukkit.getPlayer("LidanTheGamer_").sendMessage("injector found " + block.getLocation());
+            if(blockdata.size() > 0 && ((String) blockdata.get("type")).contains("Injector")){
+                if (!(connectedInjectors.get(block.getLocation()) == null || connectedInjectors.get(block.getLocation()).equals(center))){
+                    // Bukkit.getPlayer("LidanTheGamer_").sendMessage("injector already connected " + block
+                    // .getLocation());
+                    continue;
+                }
                 connectedInjectors.put(block.getLocation(), center);
                 String type = (String) blockdata.get("type");
                 int tier = getItemInjectorTier(type);
@@ -632,9 +661,9 @@ public class FusionCrafting implements Listener, CommandExecutor{
             ItemStack[] recipe = getRecipe(recipename);
             ArrayList<ItemStack> recipeal = new ArrayList<>(Arrays.asList(recipe));
             ArrayList<ItemStack> itemal = new ArrayList<>(Arrays.asList(items));
-            System.out.println("Fusion Crafting items phase 1 " + itemal.size());
+            // System.out.println("Fusion Crafting items phase 1 " + itemal.size());
             for (int i = 0; i < itemal.size(); i++) {
-                System.out.println("" + i + " " + itemal.get(i) + " " + recipeal.get(i));
+                // System.out.println("" + i + " " + itemal.get(i) + " " + recipeal.get(i));
                 if (itemal.get(i) == null)
                     itemal.set(i,new ItemStack(Material.AIR));
                 if (i != 1) {
@@ -654,29 +683,29 @@ public class FusionCrafting implements Listener, CommandExecutor{
             }
             if (recipeal.get(0).isSimilar(itemal.get(0))) {
                 if (recipeal.get(0).getAmount() == itemal.get(0).getAmount()) {
-                    System.out.println("IF 1 WORK");
+                    // System.out.println("IF 1 WORK");
                     recipeal.remove(0);
                     itemal.remove(0);
                     recipeal.remove(0);
                     itemal.remove(0);
                 }
             }
-            System.out.println("Fusion Crafting items phase 2 " + itemal.size());
+            /*System.out.println("Fusion Crafting items phase 2 " + itemal.size());
             for (int i = 0; i < itemal.size(); i++) {
                 System.out.println("" + i + " " + itemal.get(i) + " " + recipeal.get(i));
-            }
+            }*/
             if (getItemInjectorTier(itemal.get(0)) > getItemInjectorTier(recipeal.get(0))) {
                 recipeal.remove(0);
                 itemal.remove(0);
             }
-            System.out.println("Fusion Crafting items phase 3 " + itemal.size());
+            /*System.out.println("Fusion Crafting items phase 3 " + itemal.size());
             for (int i = 0; i < itemal.size(); i++) {
                 System.out.println("" + i + " " + itemal.get(i) + " " + recipeal.get(i));
-            }
-            System.out.println("Fusion Crafting Try");
+            }*/
+            // System.out.println("Fusion Crafting Try");
             for (ItemStack i : recipeal) {
                 if (!itemal.contains(i)) {
-                    System.out.println("item not in recipe! " + i);
+                    // System.out.println("item not in recipe! " + i);
                     return false;
                 }
             }

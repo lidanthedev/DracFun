@@ -66,7 +66,7 @@ public class DraconicCmd implements CommandExecutor {
             else if(args[0].equalsIgnoreCase("serialize")){
                 String msg = Draconic.DracSerializer.serialize(p.getInventory().getItemInMainHand());
                 p.sendMessage(msg);
-                System.out.println("Serialized ItemStack = " + msg);
+                // System.out.println("Serialized ItemStack = " + msg);
             }
             else if(args.length > 1 && args[0].equalsIgnoreCase("deserialize")){
                 Object fixed = Draconic.DracSerializer.deserialize(args[1]);
@@ -127,13 +127,13 @@ public class DraconicCmd implements CommandExecutor {
                             }
                         }
                         HashMap<Location, HashMap<String, Object>> blockdata = lastselectall;
-                        for (HashMap.Entry<Location, HashMap<String, Object>> entry : blockdata.entrySet()) {
+                        /*for (HashMap.Entry<Location, HashMap<String, Object>> entry : blockdata.entrySet()) {
                             System.out.printf("Blockdata for: %s",entry.getKey());
                             for (HashMap.Entry<String, Object> entry2 : entry.getValue().entrySet()) {
                                 System.out.println("Key = " + entry2.getKey() +
                                         ", Value = " + entry2.getValue());
                             }
-                        }
+                        }*/
                     }
                 }.runTaskAsynchronously(Draconic.getInstance());
             }
@@ -142,9 +142,9 @@ public class DraconicCmd implements CommandExecutor {
             }
             else if(args[0].equalsIgnoreCase("select")) {
                 HashMap<String,Object> blockdata = Database.select(Draconic.getTargetBlock(p).getLocation());
-                for (HashMap.Entry<String,Object> entry : blockdata.entrySet())
-                    System.out.println("Key = " + entry.getKey() +
-                            ", Value = " + entry.getValue());
+                // for (HashMap.Entry<String,Object> entry : blockdata.entrySet())
+                    /*System.out.println("Key = " + entry.getKey() +
+                            ", Value = " + entry.getValue());*/
             }
             else if(args[0].equalsIgnoreCase("delete")) {
                 Database.delete(Draconic.getTargetBlock(p).getLocation());

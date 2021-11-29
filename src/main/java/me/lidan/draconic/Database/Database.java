@@ -126,7 +126,7 @@ public class Database {
             PreparedStatement pstmt = conn.prepareStatement(sql)) {
             // execute the delete statement
             pstmt.executeUpdate();
-            System.out.println("Deleted " + loc);
+            // System.out.println("Deleted " + loc);
             return true;
 
         } catch (SQLException e) {
@@ -164,7 +164,7 @@ public class Database {
                 }
                 lastselectall = fullresult;
 
-                System.out.println("Finished selectall in " + (System.currentTimeMillis() - now) + "ms");
+                // System.out.println("Finished selectall in " + (System.currentTimeMillis() - now) + "ms");
             }
         }.runTaskAsynchronously(Draconic.getInstance());
     }

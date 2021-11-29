@@ -34,9 +34,9 @@ public class DraconicHoloLoad extends BukkitRunnable {
                 }.runTask(Draconic.getInstance());
             }
             catch (Exception error){
-                System.out.println("Error happend when loading holograms in " + entry);
+                /*System.out.println("Error happend when loading holograms in " + entry);
                 System.out.println(error);
-                error.printStackTrace();
+                error.printStackTrace();*/
             }
         }
     }

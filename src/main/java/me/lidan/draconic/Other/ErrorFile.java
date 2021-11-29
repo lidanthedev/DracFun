@@ -29,7 +29,7 @@ public class ErrorFile {
         try {
             customfile.save(file);
         } catch (IOException e) {
-            System.out.println("File is error and cannot be saved!");
+            System.out.println("[Draconic] File has error and cannot be saved!");
         }
     }
 

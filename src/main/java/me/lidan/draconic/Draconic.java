@@ -989,7 +989,7 @@ public final class Draconic extends AbstractAddon {
                 }
             }
         }
-        System.out.println("loopblockscube took " + (System.currentTimeMillis() - now));
+        // System.out.println("loopblockscube took " + (System.currentTimeMillis() - now));
         return blocks;
     }
 
