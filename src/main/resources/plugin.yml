@@ -1,6 +1,6 @@
-name: draconic
+name: Draconic
 version: ${project.version}
-main: me.phoenix.draconic.Draconic
+main: me.lidan.draconic.Draconic
 api-version: 1.16
 authors: [ brandon3055, LidanTheGamer , Phoenix]
 description: The Draconic Evolution Mod as a plugin
