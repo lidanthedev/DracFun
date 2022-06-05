@@ -5,8 +5,6 @@ import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
 import eu.decentsoftware.holograms.api.holograms.Hologram;
-import eu.decentsoftware.holograms.api.holograms.HologramLine;
-import eu.decentsoftware.holograms.api.holograms.HologramPage;
 import de.slikey.effectlib.EffectManager;
 import de.slikey.effectlib.EffectType;
 import de.slikey.effectlib.effect.CircleEffect;
@@ -107,7 +105,7 @@ public final class Draconic extends AbstractAddon {
             getLogger().severe("Error happened when loading items");
             error.printStackTrace();
         }
-        if (!Bukkit.getPluginManager().isPluginEnabled("DecentHolograms")) {
+        if(!getServer().getPluginManager().isPluginEnabled("DecentHolograms")) {
             getLogger().severe("*** DecentHolograms is not installed or not enabled. ***");
             getLogger().severe("*** This plugin will be disabled. ***");
             this.setEnabled(false);
