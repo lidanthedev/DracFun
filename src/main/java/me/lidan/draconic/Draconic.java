@@ -4,8 +4,9 @@ import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import com.comphenix.protocol.events.PacketContainer;
-import com.gmail.filoghost.holographicdisplays.api.Hologram;
-import com.gmail.filoghost.holographicdisplays.api.HologramsAPI;
+import eu.decentsoftware.holograms.api.holograms.Hologram;
+import eu.decentsoftware.holograms.api.holograms.HologramLine;
+import eu.decentsoftware.holograms.api.holograms.HologramPage;
 import de.slikey.effectlib.EffectManager;
 import de.slikey.effectlib.EffectType;
 import de.slikey.effectlib.effect.CircleEffect;
@@ -106,8 +107,8 @@ public final class Draconic extends AbstractAddon {
             getLogger().severe("Error happened when loading items");
             error.printStackTrace();
         }
-        if (!Bukkit.getPluginManager().isPluginEnabled("HolographicDisplays")) {
-            getLogger().severe("*** HolographicDisplays is not installed or not enabled. ***");
+        if (!Bukkit.getPluginManager().isPluginEnabled("DecentHolograms")) {
+            getLogger().severe("*** DecentHolograms is not installed or not enabled. ***");
             getLogger().severe("*** This plugin will be disabled. ***");
             this.setEnabled(false);
             return;
@@ -275,8 +276,8 @@ public final class Draconic extends AbstractAddon {
                 bars.get(p).removeAll();
             }
         }
-        for (Hologram holo: HologramsAPI.getHolograms(this)) {
-            holo.delete();
+        for (Hologram holo: DecentHologramsAPI.get(this)) {
+            hologram.delete();
         }
         Slimefun.getRegistry().getAllItemGroups().remove(DraconicGroup);
         System.out.println("Draconic Evolution Unloaded");
