@@ -3,7 +3,7 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>me.phoenix</groupId>
+    <groupId>me.lidan</groupId>
     <artifactId>draconic</artifactId>
     <version>1.0</version>
     <packaging>jar</packaging>
@@ -35,11 +35,11 @@
                         <!-- This is the relocation, make sure to replace the package name, REQUIRED -->
                         <relocation>
                             <pattern>io.github.mooy1.infinitylib</pattern>
-                            <shadedPattern>me.phoenix.draconic.infinitylib</shadedPattern>
+                            <shadedPattern>me.lidan.draconic.infinitylib</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>de.slikey</pattern>
-                            <shadedPattern>me.phoenix.draconic.slikey</shadedPattern>
+                            <shadedPattern>me.lidan.draconic.slikey</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
