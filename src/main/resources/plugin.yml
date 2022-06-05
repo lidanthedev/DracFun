@@ -1,15 +1,16 @@
-name: Draconic
+name: draconic
 version: ${project.version}
-main: me.lidan.draconic.Draconic
+main: me.phoenix.draconic.Draconic
 api-version: 1.16
-authors: [ brandon3055, LidanTheGamer ]
+authors: [ brandon3055, LidanTheGamer , Phoenix]
 description: The Draconic Evolution Mod as a plugin
+website: https://github.com/PhoenixCodingStuff/DracFun
 commands:
   aiflyto:
     usage: /<command>
   draconic:
     usage: /<command>
 depend:
-  - HolographicDisplays
+  - DecentHolograms
   - Slimefun
   - ProtocolLib
